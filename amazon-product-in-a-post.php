@@ -29,7 +29,6 @@ define( 'APIAP_OWNER_PHONE', '[NOT AVAILABLE AT THIS TIME]' );
 define( 'APIAP_OWNER_URL', 'https://www.fischercreativemedia.com/' );
 define( 'APIAP_DONATION_URL', 'https://www.fischercreativemedia.com/donations/' );
 define( 'APIAP_HELP_EMAIL', 'amazon-plugin-help@fischercreativemedia.com' );
-define( 'APIAP_FAQS_URL', 'https://cdn.kwindo.de/kryptonitewp/downloads/amazon-product-in-a-post-plugin/plugin-faqs-feed.xml' );//'http://www.fischercreativemedia.com/?feed=apipp_faqs'
 define( 'APIAP_OTHER_PLUGINS_URL', 'http://www.fischercreativemedia.com/wordpress-plugins/' );
 
 /*// debugging only 

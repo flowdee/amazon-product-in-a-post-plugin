@@ -1390,7 +1390,6 @@ function apipp_main_page() {
 }
 
 function apipp_options_faq_page() {
-  include_once( ABSPATH . WPINC . '/feed.php' );
   echo '
 		<div class="wrap">
 			<style type="text/css">
@@ -1408,20 +1407,240 @@ function apipp_options_faq_page() {
 			<div align="left"><p>' . sprintf( __( 'The FAQS are now on a feed that can be updated on the fly. If you have a question and don\'t see an answer, please send an email to %1$s and ask your question. If it is relevant to the plugin, it will be added to the FAQs feed so it will show up here. Please be sure to include the plugin you are asking a question about (Amazon Product in a Post Plugin), the Debugging Key (located on the options page) and any other information like your WordPress version and examples if the plugin is not working correctly for you. THANKS!', 'amazon-product-in-a-post-plugin' ), '<a href="mailto:'.APIAP_HELP_EMAIL.'">'.APIAP_HELP_EMAIL.'</a>' ) . '</p>
 			<hr noshade color="#C0C0C0" size="1" />
 		';
-  $rss = fetch_feed( APIAP_FAQS_URL );
+  $faqs = array(
+	  [
+		  'q' => 'What&#8217;s New in version 5.0',
+		  'a' => '<p>The biggest items in version 5.0 are the following:</p>
+                <ul>
+                    <li>Now uses the new Amazon PA API Version 5.0</li>
+                    <li>Gutenberg Blocks (for products, grids, searches and elements)</li>
+                    <li>Bug Fixes (a lot of them)</li>
+                    <li>Templates for both shortcodes and blocks.</li>
+                </ul>
+                <p>Most of version 5 of the plugin is a re-write of the core code to accommodate the new Amazon API version. But we did try to get some additional features in there &#8211; most namely the Blocks. We also tried to clean up the Amazon pricing info so it is more consistent and tried to make the shortcode parameters more consistent across all of the shortcodes.</p>'
+	  ],
+
+	  [
+		  'q' => 'In Version 5.0+ of the plugin, the Description is missing &#8211; can you fix that?',
+		  'a' => '<p>Sadly, no. The plugin now uses the PA API V5 and Amazon discontinued several data sets in the new API. Of those, the Description is probably the biggest one that people notice the most.</p>
+                <p>They may add it back in the future if enough people complain, but for now, the best thing you can do is to use the &#8216;Features&#8217; field. That is not there 100% of the time, but it does give some product description data when available. </p>'
+	  ],
+
+	  [
+		  'q' => 'Can I go back the Amazon PA API version 4.0?',
+		  'a' => '<p>No. Unfortunately, Amazon has given the 4.0 version API an end of life date as of March 9, 2020. Although the API may work for a little while after this date, there is no guarantee that Amazon will not just shut it off without warning. </p>'
+	  ],
+
+	  [
+		  'q' => 'Does the plugin support the new Amazon PA API 5.0?',
+		  'a' => '<p>Yes, it does. As of the plugin version 5.0, the new API version is part of the plugin.</p>'
+	  ],
+
+	  [
+		  'q' => 'Do you support Blocks for New Gutenberg Editor?',
+		  'a' => '<p>Yes! As of version 5.0, you can use blocks to add Amazon Products, Amazon Product Grids, Amazon Search Results and individual Amazon Elements.</p>'
+	  ],
+
+	  [
+		  'q' => 'How do I get Access to the Amazon Advertising API?',
+		  'a' => '<p>Effective May 1, 2018, your Amazon affiliate account needs to be fully approved before you can gain access to the API. So this means you cannot use the plugin right away if you do not already have an approved affiliate account prior to this date. To be fully approved, you need to have everything set up on your site (it must be live and have some product links already added). Additionally, you must also have the Amazon Affiliate disclaimer and follow all the terms of use.</p>
+                <p>For more details, see the &#8220;Getting Started&#8221; page for help on getting approved.</p>'
+	  ],
+
+	  [
+		  'q' => 'This Seems Like A Lot Of Work, Is It Really Worth It &#8211; How Much Will Really Make?',
+		  'a' => '<p>Good question &#8211; and good point. Yes, the plugin is a bit of a pain in the you-know-what to get set up.</p>
+                <p>For the first part of the question &#8211; sadly, we don&#8217;t have too much control over the setup process. Amazon has their own way of having affiliates set everything up, and they have dozens of services and APIs. Because of this, it does sometimes get to be a bit of a process to set up. A few key things to remember when setting up a new Amazon affiliate account are:</p>
+                <ol>
+                    <li>There are multiple steps to set up an account. You need to set up as an affiliate, then you need to register for the Product Advertising API and then you need to get your API keys to add to the plugin. You have to do all three or it will not work.</li>
+                    <li>If you already have an Amazon affiliate account, you have to make sure you are registered for the Product Advertising API. It is VERY different from the other APIs and even if you are registered with another one (like amazon AWS or the Marketplace), you STILL need to be signed up for the Product Advertising API.</li>
+                    <li>THIS ONE IS VERY IMPORTANT &#8211; and also one of the causes of the most issues. You must (I repeat, MUST) use ROOT keys for the plugin because Amazon Product Advertising API does not allow use of Group or User keys. We did not decide this &#8211; it is an Amazon thing. And when you log into get your keys, no matter how many times you read Amazon&#8217;s suggestion message saying to use identity management and set up groups or user keys  &#8211; you cannot use Group or User Keys for the Product Advertising API &#8211; they DO NOT ALLOW IT.</li>
+                    <li>Always check your keys. Make sure when you copy them, you get all the characters (20 for Access Key ID and 40 for Secret Key) and make sure there are no spaces at the beginning or end (this is also a very common cause for errors). You made it that far in setting everything up &#8211; don&#8217;t let a little copy and paste error frustrate the living hell out of you until you give up.</li>
+                </ol>
+                <p>Ok &#8211; on to the second part of the question &#8211; &#8220;How much will I really make?&#8221;</p>
+                <p>That is more of a difficult question to answer. That really depends on several factors &#8211; what products you have, how much traffic your site gets, what type of visitors you get and several other factors. If you just list products hoping people will buy something, then you will probably no make much. But if you review products, for example, and put the product link in the review, you are bound to make more than just throwing a bunch of products on a page. This has more to do with marketing &#8211; which we will not get into here.</p>
+                <p>With that said, we do hear from plugin users all the time that tell us they make a lot of money using the plugin. We had someone recently tell us that they made over $20,000 in commissions in 2014 using the plugin. Another said they made almost $7,000 in December alone. So, the potential is there &#8211; it is just up to you to put in the effort to make it happen.</p>
+                <p>One last closing note &#8211; Back in 2012-2013 we set up a demo site with examples of how you could use the plugin for various layouts, etc. We never intended to use it for sales of products, just as a reference. In 2013 we had affiliate revenue from the demo site in excess of $8,500 &#8211; and we were not even trying to make a dime on it. We eventually took the site down because we had too many people asking us to create sites for them, or asking for code or styles to do something a certain way &#8211; we just could not keep up with the requests at that time. But that just goes to show you that not only did we create the plugin, we actually made money on it ourselves &#8211; so we KNOW it works like intended.</p>'
+	  ],
+
+	  [
+		  'q' => 'Why Do I STILL Get Blank Products Even After I Checked Everything Was Correct?',
+		  'a' => '<p>This is a difficult question to answer without knowing all the specifics of your site and setup, but generally it means one of a few things is still not setup correctly:</p>
+                <ul>
+                    <li>Check your Amazon Access Key and Secret Keys!
+                        <ul>
+                            <li>Check to make sure you have copied ALL of the characters correctly. The Access Key ID is 20 characters long. The Secret Key is 40 characters long. Anything more or less means it is not correct.</li>
+                            <li>Check to make sure both keys do not have a space before or after the characters or anywhere in the key. Keys cannot have spaces.</li>
+                            <li>This was said before, but make sure your Keys are ROOT level keys. This means that you cannot use User or Group keys. Amazon Product Advertising API uses only the Root keys and will not allow anything else &#8211; BUT Amazon makes a suggestion to set up Identity Management and use the group and user keys. This is great for other APIs, but the suggestion does not apply to the Product Advertising API (not sure if they will ever allow it at this point).</li>
+                        </ul>
+                    </li>
+                    <li>Check that your ASINs for the products you are using are from the locale you are set to use.
+                        <ul>
+                            <li>You cannot use products from Amazon.de if you have set everything up for Amazon.com. The ASINs are NOT the same in every locale. Some may be, but the details and pricing may not be the same &#8211; and in many cases, the ASIN in one locale can be an entirely different product in another.</li>
+                        </ul>
+                    </li>
+                    <li>How many products are you trying to load on one page?  Amazon has a throttling system in place that blocks API calls if you make too many (both per/second and per/hour), so make sure you are not doing too many requests in your pages.
+                        <ul>
+                            <li>The Plugin, in it&#8217;s default mode, makes an API call to Amazon for each product you add. 14 products means 14 calls to the API &#8211; all in the first few seconds or micro-seconds before the site loads. Amazon only allows an initial usage limit of 1 request per second &#8211; so 14 uncached product calls in a second will throw an error. Additionally, there is an hourly API request limit of 2000 requests per hour initially for a new account. You earn more requests per hour (and per second) the more sales you refer to Amazon. The exact formula is posted in their terms, but the basic gist of it is:
+                                <ul>
+                                    <li>Hourly request limit per account = 2,000 + ( 500 * [Average associate revenue driven per day over the past 30 days period]/24). So lets say you refer and sell an average of $50/day over the last 30 days, your request limit would be (2,000 + ((500 * 50) /24)) which equals 3,041 requests per hour. You can earn up to 25,000 additional request per hour based on the sales (which would mean you need to earn $1,200/day average for a 30 day period) to get the most requests allowed by Amazon &#8211; which would be 27,000/hour.</li>
+                                    <li>Calls per second limit = 1 + round ([last 30 days shipped Sales])/$4,600). So if you did $5,000 in sales last month on Amazon, you would get an extra 1 request per second ($5,000 / $4,600 )  = 1.08 (rounded to 1)  + your initial 1 request would make 2 requests per second. The maximum requests per hour is 11 (1 plus an additional 10). In order to get that number, you would have to do $46,000 in sales last month!</li>
+                                </ul>
+                            </li>
+                            <li>If possible, use bulk requests. This means, if you want to add 5 products to a page, do them in one request. You can do up to 10 products in one request, just separate the ASINs with a comma. This will limit your requests to 1 and help eliminate the throttling that Amazon does when you reach your limit.</li>
+                        </ul>
+                    </li>
+                    <li>The plugin caches the results for 60 min for every API call. This helps keep the plugin from making too many calls to the API and having Amazon throttle the results. It does not stop it however. You still need to make sure you are keeping the number of products manageable on each page. If you keep trying different things and you do end up making too many calls per second, you may have to clear the product cache in order to see the product again (as the throttled request may be stored in the cache for the next 60 min). Clear the cache whenever you have an error on a page &#8211; but keep in mind that if you exceeded your hourly requests clearing it will not get the products to load. You have to wait for the next hour to be reached until Amazon clears the throttle on their end.</li>
+                </ul>
+                <p>When we initially created the plugin many years ago, Amazon allowed a developer set of keys to be used and there was no throttling in place &#8211; so users could literally install the plugin, add their affiliate ID and be ready to go with unlimited products. Since then, Amazon has continually changed their API usage terms and made it increasingly difficult to get everything set up.</p>
+                <p>Even with the added difficulties, it is still beneficial to add products to your site and a user that manages their products effectively can still make a good some of money using the plugin &#8211; it just takes a little patience and creativity.</p>'
+	  ],
+
+	  [
+		  'q' => 'What Keys can I use for the plugin, Root or User/Group IAM keys?',
+		  'a' => '<p>The only keys that the Product Advertising API allows at this time are the Root AWS/IAM Keys (Access Key ID and Secret Key).</p>
+                <p>Although Amazon recommends using Users and Groups for assigning keys, the Product Advertising API will only validate requests made with the ROOT keys. So, although it is a great idea to assign user and group keys for other AWS APIs, you cannot do it for use with this plugin (because this plugin uses the Product Advertising API to get Product Data).</p>
+                <p>Amazon has also stopped displaying the Secret Key for any existing Access Key IDs, so if you do not have yours written down, you will need to go to the Security Credentials page in the AWS IAM Console to create a new set of keys (or delete an old set and create a new set). They will give you the secret key when you create a new set and also allow you to download a copy in CSV format.</p>'
+	  ],
+
+	  [
+		  'q' => 'I Get a Warning Message After I Added a Product, Why?',
+		  'a' => '<p><strong>Version 4.0.0+:</strong><br />
+                If you get a <strong>Warning</strong> or <strong>Notice</strong> message when the product loads on the page, it could be that you are using an older (or newer) version of PHP on your hosting site. Some versions use either new methods or older outdated methods. Additionally, it is also possible that there is a problem in plugin that need to be fixed. The first thing to do is to make sure you do not have <strong>WP_DEBUG</strong> turned on. You can check this by looking at your sites <code>wp-config.php</code> file in the root of your site (you will need a file manager or FTP client to check this). On a live site, you should have <strong>WP_DEBUG</strong> turned off (or set to false). This usually stops Warnings and Notices, which are not Errors, but information for the developers and testers to let them know something might not be right (so you don&#8217;t want them showing on your site). If you do not have access to the <code>wp-config.php</code> file, or you have already turned it off, or know it is turned off, you can try to turn on the <em><strong>&#8220;Quick Fix&#8221;</strong></em> option in the plugin settings. This just tells your site not to show Warning or Notices, so it usually stops most of those messages.</p>
+                <p>If you get a <strong>Fatal Error</strong> or cannot get the <strong>Warnings/Notices</strong> to go away, let us know. Go to the plugin settings page and send us a debug notice and include a note about the errors/warnings you are getting and we will look into the issue and try to help you resolve the problem (or we will put in a bug fix if there is a problem with the plugin itself).</p>
+                <p><strong>Version 3.6.4 or less:</strong><br />
+                    If you get the following message, or something similar:</p>
+                <p><code>Warning: file_get_contents(http://webservices.amazon.com/...) [function.file-get-contents]: failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden in .../amazon-product-in-a-post-plugin/inc/aws_signed_request.php on line 649</code></p>
+                <p>Then most likely your hosting accounts php settings do not allow fopen or remote URL fopen calls to the Amazon API. This can be changed in some cases in your php.ini file, but for the sake of this FAQ, we will assume it cannot (those that know how to change php.ini files, see this post).</p>
+                <p>This can usually be overcome by changing your API Get Method in your plugin settings to use the CURL method as opposed the file_get_contents (fopen). Try changing it to CURL and save the options, then clear your product cache (click <strong>AMAZON PRODUCT/PRODUCT CACHE</strong> in the menu and click the <em>&#8216;delete cache&#8217;</em> button next to each cache line listed). Then try again to see if your problem is fixed.</p>'
+	  ],
+
+	  [
+		  'q' => 'UPDATED: Can I Stop Loading of the DYNAMIC STYLES?',
+		  'a' => '<p><strong>UPDATE:</strong> As of Version 4.0.0, we no longer load styles dynamically.<br />
+                Yes, you can stop them from loading.<br />
+                Many people have emailed us and asked how to stop the loading of Dynamic Styles for the plugin. There is a filter/action method you can use to remove the default and then add your own from a different location (like your theme folder or your style.css file).</p>
+                <p>For those asking what Dynamic Styles are &#8211; They are the styles that are loaded for the plugin dynamically when WordPress outputs the wp_head call of the site. These files do not exist as hard CSS files, but instead are created as a file at loading point. This can slow down some sites with themes or plugins that have a lot of wp_head actions and filters firing on start-up.</p>
+                <p>Follow this process to stop dynamic loading and use your own static CSS file (which may be faster in some cases):</p>
+                <ol>
+                    <li>Go to your plugin options and copy the styles from the style box at the bottom of the page into a new CSS file and save it into your theme directory (call it something like <code>myappipstyles.css</code>, etc.)</li>
+                    <li>Open your theme&#8217;s <code>functions.php</code> file &#8211; or child theme <code>functions.php</code> file if using child themes or updating themes.</li>
+                    <li>AFTER the opening<code> &lt;?php </code> tag, add the following:<br />
+                        <code>remove_action(\'wp_head\',\'aws_prodinpost_addhead\',10);<br />
+                            add_action(\'wp_head\',\'aws_prodinpost_addhead_new\',10);<br />
+                            function aws_prodinpost_addhead_new(){<br />
+                            echo \' &lt;link href="\'.plugins_url().\'/amazon-product-in-a-post-plugin/css/amazon-lightbox.css" rel="stylesheet" media="screen" type="text/css" /&gt;\'."\n";<br />
+                            echo \' &lt;link href="\'.get_template_directory_uri().\'/myappipstyles.css" rel="stylesheet" media="screen" type="text/css" /&gt;\'."\n";<br />
+                            }</code></li>
+                    <li>That is it.<br />
+                        If you have caching plugins or WP cache enabled, clear the cache so your site updates.<br />
+                        Your styles should now be loaded from your file and not dynamically any longer.</li>
+                </ol>
+                <p>This will let the light-box type modal effect still work for the images as well as add your own style. Be sure to change the <code>myappipstyles.css</code> above to the name of your actual css file. If you use your <code>style.css</code> file to add the styles to, you will not need the second echo line as your style.css style sheet will already be loaded by the site normally.</p>'
+	  ],
+
+	  [
+		  'q' => 'Is the shortcode for elements &#8220;amazon-element&#8221; or &#8220;amazon-elements&#8221; (plural)?',
+		  'a' => '<p>There has been a little bit of confusion on what the new shortcode for elements is supposed to be. In the documentation we say, <code>&#91;amazon-elements&#93;</code> but then in the examples we use <code>&#91;amazon-element&#93;</code> (note that one is plural and one is not).</p>
+                <p>The answer is, you can actually use both. It really does not matter as they are both valid shortcodes and do exactly the same thing.</p>
+                <p><strong>So why both?</strong><br />
+                    Well, we initially started with <code>&#91;amazon-element&#93;</code> as the only one. Then, during testing we found an odd thing happening &#8211; when someone wanted to use more than one element, they would automatically try using <code>&#91;amazon-elements&#93;</code> instead. We figure that happens because out brains try to pluralize anything that has more than one item automatically, so without realizing it, they were using the plural shortcode and running into problems. So to help everyone out, we decided to just add the additional shortcode &#8211; so you can use it however your brain thinks you should. Use singular for one element and plural for multiple &#8211; or just use the plural for everything &#8211; it is up to you.</p>
+                <p>As a bonus, we have had several people ask how to do a grid &#8216;related-post&#8217; style layout with the new shortcode. So here is how you can do it:<br />
+                    in the editor (text mode) put (change out your ASINs):</p>
+                <div class="code-block"><code><br />
+                    &#91;amazon-elements asin="B005LAII4E" fields="title,lg-image,large-image-link,imagesets,desc,new-price,button" msg_instock="" target="_blank" labels="title::G.I. Joe: Retaliation, description::Description:"&#93;<br />
+                    &lt;div style="clear: both;"&gt;&lt;/div&gt;<br />
+                    &lt;div class="related-posts"&gt;<br />
+                    &lt;h3&gt;Other Great Titles:&lt;/h3&gt;<br />
+                    &#91;amazon-elements asin="B00BUADSMQ,B00C5W3SBE,B00B769XB8,B00BUC4VS4" fields="image,title,new-price,button" msg_instock="" target="_blank" labels="title::Good Day to Die Hard,title::Oz: Great & Powerful,title::Hansel & Gretel,title::Snitch" container="div"&#93;</code></div>
+                <p>Then in the styles &#8211; (in the options page, check the &#8216;use my styles&#8217; then enter the following in styles box):</p>
+                <div class="code-block"><code>.related-posts .amazon-element-wrapper{width:20%;float:left;text-align:center;padding:1%;margin:1%;border:1px solid #DEDEDE;box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);}<br />
+                    .related-posts .amazon-element-wrapper .amazon-image-wrapper{float:none;}<br />
+                    .related-posts .amazon-element-wrapper .amazon-element-title h2 {font-size:12px;margin: 0;}<br />
+                    .related-posts .amazon-element-wrapper .amazon-element-title h2 a{text-decoration:none;}<br />
+                    .related-posts .amazon-element-wrapper .amazon-element-new-price{font-size:12px;}<br />
+                    .related-posts .amazon-element-wrapper .label-new-price{display:block;}<br />
+                    .related-posts .amazon-element-button img{background: transparent;box-shadow: none;border: none;}<br />
+                </code></div>
+                <p>You may need to adjust the styles based on your theme, but that would be the basic layout.</p>'
+	  ],
+
+	  [
+		  'q' => 'Why Does the Price on Some Products Say &#8220;Too Low To Display&#8221;?',
+		  'a' => '<p>This is not a glitch in the plugin! This is part of the normal Amazon API functionality.</p>
+                <p>Here is the official word from Amazon on why that happens:</p>
+                <blockquote><p>Some manufacturers have a minimum advertised price (MAP) that can be displayed on Amazon&#8217;s retail website. When the Amazon price is lower than the MAP, the manufacturer does not allow the price to be shown until the customer takes further action, such as placing the item in their shopping cart, or in some cases, proceeding to the final checkout stage.</p>
+                    <p>When performing an <code>ItemSearch</code> or <code>ItemLookup</code> operation in these cases, the string &#8220;Too Low to Display&#8221; is returned instead of the actual price. Customers need to go to Amazon to see the price on the retail website, but won&#8217;t be required to purchase the product.</p></blockquote>
+                <p>Now, that does not make it anymore acceptable, but that is why it happens.</p>
+                <p>What can you do? Nothing at the moment. BUT, we are working on a workaround to add to the plugin that will return the first offer price if there are multiple sellers. Usually the fist one is the actual main seller anyway, so we hope to be able to return at least a price if there is one. We should have it ready VERY soon.</p>'
+	  ],
+
+	  [
+		  'q' => 'Help! I Can&#8217;t Use The Amazon New Product Feature &#8211; What&#8217;s Up?',
+		  'a' => '<p>There is a slight bug in version 3.5.1 where you cannot add a new product using the &#8220;New Amazon Post&#8221; option (formerly New Amazon PIP). This is being addressed and we will have a fix shortly.</p>
+                <p>This bug does not effect the shortcode usage or products currently added &#8211; you just can&#8217;t create a new one using that method.</p>'
+	  ],
+
+	  [
+		  'q' => 'Do I Need To Change Out My Old Shortcodes?',
+		  'a' => '<p>No, you don&#8217;t <em>need</em> to. But, we think you will <em>want</em> to.</p>
+                <p>With 3.5.1+, the shortcode allows for many additional features. Some of those features are off by default, so you need to turn them on. All of these features are available only with the new shortcode.</p>
+                <p>The basic shortcode is <code>[</code><code>AMAZONPRODUCTS asin="XXXXXXXXXX"]</code> (the XXXXXXXXXX is where the ASIN goes).</p>
+                <p>The new parameters are as follows:</p>
+                <ul>
+                    <li><strong>asin</strong> &#8211; The amazon ASIN (can be up to 10, comma separated)</li>
+                    <li><strong>gallery</strong> &#8211; Shows Additional Images Gallery if available (from Amazon) &#8211; 1 to show or 0 to hide (default 0)</li>
+                    <li><strong>features</strong> &#8211; Shows product features if available &#8211; 1 to show or 0 to hide (default 0)</li>
+                    <li><strong>listprice</strong> &#8211; Show or hide the list price &#8211; 1 to show or 0 to hide (default 1)</li>
+                    <li><strong>showformat</strong> &#8211; Show or hide the format in the title &#8211; 1 to show or 0 to hide (default 1)</li>
+                    <li><strong>desc</strong> &#8211; Show or hide the description if available &#8211; 1 to show or 0 to hide (default 0)</li>
+                    <li><strong>replace_title</strong> &#8211; Title Text if you want to replace the Amazon Title with your own.</li>
+                </ul>
+                <p>Examples:</p>
+                <p><code>[</code><code>AMAZONPRODUCTS asin="B00BUADSMQ" desc="1" showformat="0" features="1" replace_title="My New Title - Great!"]</code></p>
+                <p><code>[</code><code>AMAZONPRODUCTS asin="B005LAIH2M" desc="1" showformat="0" features="1" gallery="1" replace_title="My Second New Title - Better!"]</code></p>
+                <p><code>[</code><code>AMAZONPRODUCTS asin="B00BUADSMQ,B005LAIH2M" desc="0" showformat="0" listprice="0" gallery="1"]</code></p>'
+	  ],
+
+	  [
+		  'q' => 'I Upgraded and the Description is Showing &#8211; it Wasn&#8217;t Before. Can I Make it NOT Show?',
+		  'a' => '<p>If you update from a version lower than 3.5.1, there are several new features that were added. One of the requested feature was adding the Amazon Description to the product. This is on by default for products that use the really old shortcode.</p>
+                <p>An additional feature was a NEW replacement shortcode that has many more features. If you switch your old shortcodes to the new shortcode, the display should look more like it did prior to the update (i.e., no description). The old shortcode was set up like so <code>[</code><code>AMAZONPRODUCT=XXXXXXXXXX]</code>. This is not ideal for adding features so the replacement shortcode uses the WordPress Shortcode system to process the shortcode, making it much easier for us to add parameters (or features) to the products via the shortcode. The replacement shortcode should be used like so:</p>
+                <p><code>[</code><code>AMAZONPRODUCTS asin="XXXXXXXXXX"]</code></p>
+                <p>if you decide you want the description in the new shortcode, you can turn it on by using:</p>
+                <p><code>[</code><code>AMAZONPRODUCTS asin="XXXXXXXXXX" desc="1"]</code></p>
+                <p>You can also view the <a href="/wp-admin/admin.php?page=apipp_plugin-shortcode">Shortcode Usage</a> page for all the shortcodes and options available.</p>'
+	  ],
+
+	  [
+		  'q' => 'Why Do I Get Blank/No Products?',
+		  'a' => '<p>There are usually a few reasons this happens.</p>
+                <ul>
+                    <li>The first, happens when your selecting products that do not belong in the locale that your API is registered in &#8211; i.e., you are picking a product from Amazon.com and your API is registered for Amazon.co.uk. Not all products are available for all locales, and even if it is, it MAY have a completely different ASIN number in different locales. If you want to be sure your product is available, always pick the products from your registered locale.</li>
+                    <li>The second seems to me happening more, probably because of the way Amazon requires you to get your API keys now. Check to make sure that there are NO spaces in the Access Key or Secret Keys at the beginning or end. This is sometimes not a space, but a hidden return character or something else, so make sure all that is in those fields are the keys and nothing else.</li>
+                    <li>The third is more common and happens when an affiliate registered for the Amazon AWS, but did not register for the Advertising API. The Amazon Advertising API is how the plugin gets its data, so if you are not registered for the Advertising API, Amazon will return a blank item with an error message. This is usually something like:<br />
+                        <code>Your AccessKey Id is not registered for Product Advertising API. Please use the AccessKey Id obtained after registering at https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html.</code></li>
+                </ul>
+                <p>So, check that your products are available in your locale and check to make sure you have registered for the Amazon Advertising API, not just Amazon AWS.</p>
+                <p>To register for the Advertising API, go to:</p>
+                <ul>
+                    <li>United States (com): <a href="https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html</a></li>
+                    <li>United Kingdon (co.uk): <a href="https://affiliate-program.amazon.co.uk/gp/flex/advertising/api/sign-in.html" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.co.uk/gp/flex/advertising/api/sign-in.html</a></li>
+                    <li>Canada (ca): <a href="https://associates.amazon.ca/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://associates.amazon.ca/gp/advertising/api/detail/main.html</a></li>
+                    <li>Germany (de): <a href="https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html</a></li>
+                    <li>France (fr): <a href="https://partenaires.amazon.fr/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://partenaires.amazon.fr/gp/advertising/api/detail/main.html</a></li>
+                    <li>Japan (jp): <a href="https://affiliate.amazon.co.jp/gp/advertising/api/detail/agreement.html" target="_blank" rel="noopener noreferrer">https://affiliate.amazon.co.jp/gp/advertising/api/detail/agreement.html</a></li>
+                    <li>Spain (es): <a href="https://afiliados.amazon.es/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://afiliados.amazon.es/gp/advertising/api/detail/main.html</a></li>
+                </ul>'
+	  ]
+  );
   $linkfaq = array();
   $linkcontent = array();
-  if ( !is_wp_error( $rss ) ):
-    $maxitems = $rss->get_item_quantity( 100 );
-  $rss_items = $rss->get_items( 0, $maxitems );
-  endif;
   $aqr = 0;
-  if ( $maxitems != 0 ) {
-    foreach ( $rss_items as $item ):
-      $aqr++;
-    $linkfaq[] = '<li class="faq-top-item"><a href="#faq-' . $aqr . '">' . esc_html( $item->get_title() ) . '</a></li>';
-    $linkcontent[] = '<li class="faq-item"><a name="faq-' . $aqr . '"></a><h3 class="qa"><span class="qa">Q. </span>' . esc_html( $item->get_title() ) . '</h3><div class="qa-content"><span class="qa answer">A. </span>' . $item->get_content() . '</div><div class="toplink"><a href="#faq-top">top &uarr;</a></li>';
-    endforeach;
+  foreach ( $faqs as $item ) {
+    $aqr++;
+    $linkfaq[] = '<li class="faq-top-item"><a href="#faq-' . $aqr . '">' . esc_html( $item['q'] ) . '</a></li>';
+    $linkcontent[] = '<li class="faq-item"><a name="faq-' . $aqr . '"></a><h3 class="qa"><span class="qa">Q. </span>' . esc_html( $item['q'] ) . '</h3><div class="qa-content"><span class="qa answer">A. </span>' . $item['a'] . '</div><div class="toplink"><a href="#faq-top">top &uarr;</a></li>';
   }
   echo '<a name="faq-top"></a><h2>' . __( 'Table of Contents', 'amazon-product-in-a-post-plugin' ) . '</h2>';
   echo '<ol class="apipp-faq-links">';
