@@ -1,9 +1,8 @@
 ﻿=== Amazon Product in a Post Plugin ===
-
 Plugin Name: Amazon Product in a Post
-Contributors: prophecy2040, flowdee
+Contributors: flowdee
 Tags: Amazon, Affiliate, Product, Products, Post, Page, Custom Post Type, Quick Post, Amazon Associate, Monetize, ASIN, Amazon.com, Blocks, Gutenberg Blocks
-Donate link: https://www.fischercreativemedia.com/donations/
+Donate link: https://donate.flowdee.de/
 Requires at least: 5.0
 Tested up to: 5.4.1
 Requires PHP: 5.6.0
@@ -20,7 +19,7 @@ The Amazon Product In a Post plugin can be used to quickly add formatted Amazon 
 **Uses the New Amazon Product Advertising API V5**
 As of March 9th 2020, Amazon requires the API version 5.0 to be used. This version has a more streamlined response so some data is no longer available. **Most noticeably the Product Description and Customer Reviews.**
 
-**If you have an Affiliate account already, you will need to Migrate your API Keys or generate a new set of keys before the plugin will work correctly.** 
+**If you have an Affiliate account already, you will need to Migrate your API Keys or generate a new set of keys before the plugin will work correctly.**
 This will also require you to add the new keys in the plugin settings.
 
 Amazon also requires you have your affiliate account fully approved before they will grant you access to the Amazon Product Advertising API. This means that you many not be able to use the plugin immediately until you receive access to the API.
@@ -30,7 +29,7 @@ If you do not have an Amazon Affiliate Account or Amazon Product Advertising API
 ## How it Works: ##
 The plugin uses the Amazon Product Advertising API to get product information from Amazon to display on your site. To use the plugin, you must have:
 1. An Amazon Affiliate Account
-2. Amazon Product Advertising API keys (generated after March 2019). 
+2. Amazon Product Advertising API keys (generated after March 2019).
 
 **Amazon's Product Advertising API Terms of Use requires you have an AWS Access Key ID and Secret Access Key of your own to use.** See **Plugin FAQs** or **Getting Started** page for links to sign up.
 
@@ -83,11 +82,11 @@ See the Installation Page for details on setting up the Products. There is a dyn
 * You need to have an Amazon Affiliate Account and you have to register for the Amazon Product Advertising API to get a set of access Keys to put in the plugin. That allows the plugin to make calls to Amazon to get Product Data and pricing.
 * Version 3.5.1+ has a Getting Started page that helps you through the Amazon Signup for your Amazon Access Keys. Install the plugin and go to the Getting Started Page in the plugin menu for more information.
 
-= Great Plugin! How do I donate to the cause? = 
-* Excellent question! The plugin is provided free to the public — you can use it however you like — where ever you like — you can even change it however you like. Should you decide that the plugin has been a great help and want to donate to our plugin development fund, you may do so [here](https://www.fischercreativemedia.com/donations/ "here").
+= Great Plugin! How do I donate to the cause? =
+* Excellent question! The plugin is provided free to the public — you can use it however you like — where ever you like — you can even change it however you like. Should you decide that the plugin has been a great help and want to donate to our plugin development fund, you may do so [here](https://donate.flowdee.de/ "here").
 
 == Installation ==
-After you install the plugin, you need to set up your Amazon Affiliate/Associate ID in the Options panel located in the AMAZON PRODUCT menu under PLUGIN SETTING. 
+After you install the plugin, you need to set up your Amazon Affiliate/Associate ID in the Options panel located in the AMAZON PRODUCT menu under PLUGIN SETTING.
 
 An AWS Access Key ID and Secret Access Key REQUIRED. You MUST use the ROOT keys and not the User or Group Keys that Amazon recommends. See the plugin **Getting Started** page for additional setup instructions.
 
@@ -307,7 +306,7 @@ No additional adjustments are needed unless you want to configure your own CSS s
 * **Update:** modified the `amazon-element(s)` shortcode to allow some 'clean' fields that are not wrapped or styled. For example — 'title_clean' will return just title name and not the fully tagged link and title name.
 The current clean fields are:
 Returns Plain Text Only: 'title_clean', 'desc_clean', 'description_clean', 'price_clean', 'new-price_clean', 'features_clean'.
-Return URL only: 'image_clean', 'med-image_clean', 'sm-image_clean', 'lg-image_clean', 'full-image_clean', 'large-image-link_clean', 'link_clean', 'customerreviews_clean': 
+Return URL only: 'image_clean', 'med-image_clean', 'sm-image_clean', 'lg-image_clean', 'full-image_clean', 'large-image-link_clean', 'link_clean', 'customerreviews_clean':
 
 = 3.6.2 =
 * **Feature Addition:** No longer limited to 10 ASINs per shortcode or main product. Amazon still limits 10 per request, but the plugin will now split them out into blocks of 10 and perform the requests.
@@ -358,7 +357,7 @@ Example `[amazon-product-search keywords='disney' search_index='All' item_page='
 * Fix to issue with Add New Amazon Post page not loading.
 * Fix to the Shortcode for amazon-elements.
 * Added a container parameter and container class parameter to the amazon-elements shortcode to make styling multiple ASINs easier.
-* Fixed Readme.txt file for screenshots for WordPress repository. 
+* Fixed Readme.txt file for screenshots for WordPress repository.
 
 = 3.5.1 =
 * Basic template integration (for future use — or if you are good at hooks and filters and can figure it out on your own — go ahead — the structure is there!)
@@ -369,12 +368,12 @@ Example `[amazon-product-search keywords='disney' search_index='All' item_page='
 * Added Shortcode Help Page to give examples of how to use the shortcodes effectively.
 * Added feed driven FAQs page — easier for me to update FAQs on the fly that way.
 * Added several Filters and Hooks — will lay them all out in next revision.
-	
+
 = 3.1 to 3.5.0 =
 * development versions.
 
 = 3.0 =
-* Added New Shortcode [AMAZONPRODUCTS] (instead of [AMAZONPRODUCT=B0084IG8TM]) — old method will still work 
+* Added New Shortcode [AMAZONPRODUCTS] (instead of [AMAZONPRODUCT=B0084IG8TM]) — old method will still work
 * Added Bulk API Call to limit number of calls to API (can use up to 10 ASINs at one time)
 * Updated the deprecated function calls
 * Increased API return values for use in theme — puts all items in the array now

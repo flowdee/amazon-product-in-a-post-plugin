@@ -172,11 +172,11 @@ class AmzRequestV5 {
     if ( isset( $formatted[ implode( "|", $asins ) . '-' . $cResult ] ) ) {
       return $formatted[ implode( "|", $asins ) . '-' . $cResult ];
     }
-	  
+
     $newErr = '';
     $RetValNew = array();
     if ( $pxmlkey == 'SearchResult' ){
-      $requestType = 2; 
+      $requestType = 2;
 	}elseif ( $pxmlkey == 'VariationsResult' ){
       $requestType = 3;
 	}elseif ( $pxmlkey == 'BrowseNodesResult' ){
@@ -184,7 +184,7 @@ class AmzRequestV5 {
 	}elseif( $pxmlkey == 'ItemsResult'  ){
 	  $requestType = 1;
 	}else{
-      $requestType = 0;		
+      $requestType = 0;
 	}
 	if ( $requestType == 2 ) {
       $Items = isset( $Result[ 'Items' ] ) ? $Result[ 'Items' ] : false;
@@ -376,13 +376,13 @@ class AmzRequestV5 {
 		$public_key 	= isset($params['AWSAccessKeyId']) ? $params['AWSAccessKeyId'] : '';
 		$temp 			= array_chunk(array_unique($asins), 10);
 		$asins			= array_chunk($asins, 10);
-		
+
 		if( $reqtype == 'asin'){
 			$requestedASINs = array();
 			if( is_array( $asins ) && !empty( $asins ) ){
 				foreach($asins as $akey => $aval){
 					$pairs 					= array();
-					$params['ItemId']		= implode(',',$aval);	
+					$params['ItemId']		= implode(',',$aval);
 					foreach ($params as $key => $value)
 						array_push($pairs, rawurlencode($key)."=".rawurlencode($value));
 					$canonical_query_string = join("&", $pairs);
@@ -429,7 +429,7 @@ class AmzRequestV5 {
 		$cachetime 				= (int) apply_filters('amazon_product_post_cache',3600);
 		$asinArr				= isset($req_params["ItemId"]) ? explode(',',$req_params["ItemId"]) : array();
 		$IDMatches				= isset($data["posts"]) && is_array($data["posts"]) ? array_flip($data["posts"]): array();
-		$allASINs				= array();	
+		$allASINs				= array();
 		$allASINs['requested'] 	= !empty($asinArr) ? $asinArr : array();
 		$allASINs['togetAPI'] 	= array();
 		$allASINs['cached'] 	= array();
@@ -439,12 +439,12 @@ class AmzRequestV5 {
 		$needed 				= array_values($needed);
 		$getArr					= array('private_key'=>$aws_secret_key,'region' => $locale,'asins' =>  $needed,'params' => $req_params,'amz_posts' => $amz_posts,'id_matches' => $IDMatches,);
 		$tempRequest 			= $this->process_amz_posts($getArr);
-		$request				= $tempRequest['requests'];	
+		$request				= $tempRequest['requests'];
 		$requestedASINs 		= $tempRequest['asins'];
 		$updateIDs 				= $tempRequest['updates'];
 		$amzArr					= array();
 		$amzItems 				= array();
-		remove_action( 'save_post', array($this,'save_post_process_amazon'), 10);	
+		remove_action( 'save_post', array($this,'save_post_process_amazon'), 10);
 		if(is_array($request) && !empty($request)){
 			$io= 0;
 			foreach( $request as $k => $v ):
@@ -506,11 +506,11 @@ class AmzRequestV5 {
 								error_log('ERRORS[InvalidParameterValue]:'.print_r($cycleErrors, true));
 							}
 						}
-					} 
+					}
 				}else{
 					$continue = false;
 				}
-				
+
 				if ( is_wp_error( $test ) ) {
 				   	$error_message = $test->get_error_message();
 					if($ajax)
@@ -535,7 +535,7 @@ class AmzRequestV5 {
 					}
 					$continue = false;
 				}
-			
+
 				if($continue == true){
 					$i 			= 0;
 					if( !empty( $amzItems ) ){
@@ -552,11 +552,11 @@ class AmzRequestV5 {
 								remove_all_filters('wp_insert_post');
 								remove_all_filters('save_post');
 								$pst_arr = array(
-									'ID' => $newID, 
-									'post_type'=> 'amz-product', 
-									'post_title' => $Prods['Title'], 
+									'ID' => $newID,
+									'post_type'=> 'amz-product',
+									'post_title' => $Prods['Title'],
 									'post_modified' => date( 'Y-m-d H:i:s' ),
-									'post_modified_gmt' => date( 'Y-m-d H:i:s' ) 
+									'post_modified_gmt' => date( 'Y-m-d H:i:s' )
 								);
 								$post_id = wp_update_post( $pst_arr, true );
 								if (is_wp_error($post_id)) {
@@ -590,8 +590,8 @@ class AmzRequestV5 {
 									remove_all_filters('wp_insert_post');
 									remove_all_filters('save_post');
 									$pst_Arr = array(
-										'ID' => $newID, 
-										'post_type'=> 'amz-product', 
+										'ID' => $newID,
+										'post_type'=> 'amz-product',
 										'post_title'=> '- Invalid ['.$a.']',
 										'post_modified' => date( 'Y-m-d H:i:s' ),
 										'post_modified_gmt' => date( 'Y-m-d H:i:s' )
@@ -620,7 +620,7 @@ class AmzRequestV5 {
 		return $cached;
 	}
   public function GetAPPIPReturnVals_V5( $Item = array(), $ItemB = array(), $Errors = array() ) {
-    //processor function for product created by Don Fischer http://www.fischercreativemedia.com
+    //processor function for product
     $ItemInfo = isset( $ItemB[ 'ItemInfo' ] ) ? $ItemB[ 'ItemInfo' ] : array();
     $ItemOffers = isset( $ItemB[ 'Offers' ] ) ? $ItemB[ 'Offers' ] : array();
     $ItemOffSum = isset( $ItemOffers['Summaries' ] ) ? $ItemOffers['Summaries' ] : array();
@@ -683,7 +683,7 @@ class AmzRequestV5 {
 				  $ImageSetsArray[] = '<a rel="appiplightbox-' . $ASIN . '" href="#" data-appiplg="' . $this->checkSSLImages_url( $imgset[ 'Large' ][ 'URL' ] ) . '"><img src="' . $this->checkSSLImages_url( $imgset[ 'Small' ][ 'URL' ] ) . '" alt="' . ( apply_filters( 'appip_alt_text_gallery_img', 'Img - ' . $ASIN, $ASIN ) ) . '" class="apipp-additional-image"/></a>' . "\n";
 				}
 			}
-		} 
+		}
 		$DetailPageURL = isset( $Item[ 'DetailPageURL' ] ) ? $Item[ 'DetailPageURL' ] : '';
 		$cached = isset( $Item[ "CachedAPPIP" ] ) ? $Item[ "CachedAPPIP" ] : 0;
     	$appReleaseDate = isset( $Item["ItemInfo_ProductInfo_ReleaseDate_DisplayValue"] ) ? $Item["ItemInfo_ProductInfo_ReleaseDate_DisplayValue"] : '';
@@ -698,25 +698,25 @@ class AmzRequestV5 {
 			$appProducer = $this->getBylineValues(  "Producer" ,  $contributors);
     		$appPublisher = $this->getBylineValues(  "Publisher" ,  $contributors);
 		}else{
-			$appActor =  
-			$appArtist = 
-			$appAuthor = 
-			$appDirector = 
-			$appWriter = 
-			$appCreator = 
-			$appProducer = 
+			$appActor =
+			$appArtist =
+			$appAuthor =
+			$appDirector =
+			$appWriter =
+			$appCreator =
+			$appProducer =
 			$appPublisher = '';
 		}
-	  
+
     	$appIsAdultProduct = isset( $ItemInfo["ItemInfo_ProductInfo_IsAdultProduct_DisplayValue"] ) && (bool) $ItemInfo["ItemInfo_ProductInfo_IsAdultProduct_DisplayValue"] === true  ? true : false;
     	$appRating = isset( $Item["ItemInfo_ContentRating_AudienceRating_DisplayValue"] ) ? $Item["ItemInfo_ContentRating_AudienceRating_DisplayValue"] : '';
 		$appAudienceRating = $appRating;
     	$appFeature = isset( $ItemInfo["Features"]["DisplayValues"]) ? $this->checkImplodeValues( (array) $ItemInfo["Features"]["DisplayValues"],'ul' ) : '';
 
-// check these:  
-$appLanguages = isset( $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] ) ? $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] : ''; 
+// check these:
+$appLanguages = isset( $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] ) ? $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] : '';
 // end to check
-	  
+
 		$appBinding = isset( $Item[ 'ItemInfo_Classifications_Binding_DisplayValue' ] ) ? $Item[ 'ItemInfo_Classifications_Binding_DisplayValue' ] : '';
 		$hideBinding = ( bool )apply_filters( 'amazon-hide-binding-in-title', false, $appBinding );
 		$appTitle = isset( $ItemInfo[ 'Title' ]["DisplayValue"] ) ?  $ItemInfo[ "Title" ]["DisplayValue"] : '';
@@ -756,7 +756,7 @@ $appLanguages = isset( $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] ) 
 		$appUPC = isset( $Item[ 'ItemInfo_ExternalIds_UPCs_DisplayValues_0' ] ) ? $Item[ 'ItemInfo_ExternalIds_UPCs_DisplayValues_0' ] : '';
 		$appUPCList = isset( $ItemInfo[ 'ExternalIds']['UPCs'][ 'DisplayValues' ]  ) ? ( is_array( $ItemInfo[ 'ExternalIds']['UPCs'][ 'DisplayValues' ] ) ? $this->checkImplodeValues( $ItemInfo[ 'ExternalIds']['UPCs'][ 'DisplayValues' ] ) : '' ) : '';
 		$appManufacturer = isset($Item[ 'ItemInfo_ByLineInfo_Manufacturer_DisplayValue' ]) ? $Item[ 'ItemInfo_ByLineInfo_Manufacturer_DisplayValue' ] : '';
-		
+
 	  /* API V5 No Longer Have Reviews */
 		$appHasReviews = 'false';
 		$appCustomerReviews = '';
@@ -835,7 +835,7 @@ $appLanguages = isset( $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] ) 
 		$appTotalUsed = isset( $newAmzPricing[ "Used" ][ 'OfferCount' ] ) ? $newAmzPricing[ "Used" ][ 'OfferCount' ] : 0;
 		$appTotalRefurbished = isset( $newAmzPricing[ "Refurbished" ][ 'OfferCount' ] ) ? $newAmzPricing[ "Refurbished" ][ 'OfferCount' ] : 0;
 		$appTotalCollectible = isset( $newAmzPricing[ "Collectible" ][ 'OfferCount' ] ) ? $newAmzPricing[ "Collectible" ][ 'OfferCount' ] : 0;
-	  
+
 		$isPriceHidden = ( $appLowestNewPrice == 'Too low to display' ) ? 1 : 0;
 
 		$appTotalOffers = '';
@@ -844,7 +844,7 @@ $appLanguages = isset( $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] ) 
 	  	$DescriptionAmz = '';
 	    $EDescprition = array( 'features' => $appFeature );
 	  /* TO BE Converted */
-	 
+
 	  /* Net Set at the moment */
 	  $variations = '';
 	  $appCatalogNumberList = '';
@@ -854,7 +854,7 @@ $appLanguages = isset( $ItemInfo["ContentInfo"]["Languages"]["DisplayValues"] ) 
       $appvLowestSalePrice = '';
       $appvHighestSalePrice = '';
 	  /* end not set */
-	  
+
 	  $Errors = empty($Errors) ? '' : $Errors;
 	  $imgArr = array( 'sm' => $ImageSM, 'med' => $ImageMD, 'lg' => $ImageLG, 'hi' => $ImageHiRes );
     $RetVal = array(

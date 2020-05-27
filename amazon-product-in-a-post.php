@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: Amazon Product In a Post
-Plugin URI: https://www.fischercreativemedia.com/wordpress-plugins/amazon-affiliate-product-in-a-post/
+Plugin URI: https://wordpress.org/plugins/amazon-product-in-a-post-plugin/
 Description: Add stylized Amazon Products to your site via the Product Advertising API.
-Author: Fischer Creative Media, LLC.
-Author URI: https://www.fischercreativemedia.com/
-Author Email: dfischer@fischercreativemedia.com
+Author: KryptoniteWP
+Author URI: https://kryptonitewp.com
+Author Email: support@kryptonitewp.com
 Text Domain: amazon-product-in-a-post-plugin
 Domain Path: /lang/
 Version: 5.1.0
-    Copyright (C) 2009-2020 Donald J. Fischer
+    Copyright (C) 2009-2020 KryptoniteWP
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -24,14 +24,12 @@ Version: 5.1.0
 /**
  * Define Owner Info, etc.
  */
-define( 'APIAP_OWNER_BUSINESS', 'Fischer Creative Media, LLC' );
-define( 'APIAP_OWNER_PHONE', '[NOT AVAILABLE AT THIS TIME]' );
-define( 'APIAP_OWNER_URL', 'https://www.fischercreativemedia.com/' );
-define( 'APIAP_DONATION_URL', 'https://www.fischercreativemedia.com/donations/' );
-define( 'APIAP_HELP_EMAIL', 'amazon-plugin-help@fischercreativemedia.com' );
-define( 'APIAP_OTHER_PLUGINS_URL', 'http://www.fischercreativemedia.com/wordpress-plugins/' );
+define( 'APIAP_OWNER_BUSINESS', 'KryptoniteWP' );
+define( 'APIAP_DONATION_URL', 'https://donate.flowdee.de/' );
+define( 'APIAP_HELP_EMAIL', 'support@kryptonitewp.com' );
+define( 'APIAP_OTHER_PLUGINS_URL', 'https://kryptonitewp.com/downloads/category/plugins/' );
 
-/*// debugging only 
+/*// debugging only
 ini_set( 'memory_limit', '256M' );
 ini_set( 'display_errors', 0 );
 ini_set( 'log_errors', 1 );
@@ -215,7 +213,7 @@ register_deactivation_hook(__FILE__,'appip_deinstall');
 		return $links;
 	}
 	add_filter( 'plugin_row_meta', 'apipp_plugin_row_meta' , 10, 2 );
-	
+
 	function apipp_plugin_action_links($links){
 			$new_links = array();
 			$new_links[] = '<a href="admin.php?page=apipp-main-menu" class="amazon-plugin-action-icon"><span class="dashicons dashicons-info"></span>'.__( "Getting Started", 'amazon-product-in-a-post-plugin') .'</a>';
@@ -288,7 +286,7 @@ register_deactivation_hook(__FILE__,'appip_deinstall');
 			if( get_option("apipp_product_styles_mine",'') === '')
 				delete_option("apipp_product_styles");
 		}
-		
+
 		// less than 5.0.0, set show metbox with gutengerg to true (can be turned off later if not needed).
 		if( version_compare('5.0.0', get_option("apipp_product_upgraded_version", '0.0.0'), '<' )){
 			if( get_option("apipp_show_metaboxes",'') === '')

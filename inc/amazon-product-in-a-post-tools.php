@@ -165,7 +165,7 @@ function apipp_parse_new() { //Custom Save Post items for Quick Add
     $amzreq = '';
 
     if ( $ASIN != '' ) {
-      $ASIN = ( is_array( $ASIN ) && !empty( $ASIN ) ) ? implode( ',', $ASIN ) : $ASIN; //valid ASIN or ASINs 
+      $ASIN = ( is_array( $ASIN ) && !empty( $ASIN ) ) ? implode( ',', $ASIN ) : $ASIN; //valid ASIN or ASINs
       $asinR = explode( ",", $ASIN );
       $asinArr = $asinR;
       $appip_publickey = APIAP_PUB_KEY;
@@ -246,7 +246,7 @@ function apipp_parse_new() { //Custom Save Post items for Quick Add
         $itemErrors = true;
 
         /*
-        loop the errors- and looks for item errors only, 
+        loop the errors- and looks for item errors only,
         then put into the return array for that ASIN (even though it is invalid).
         This will output the error into the HTML as a comment so user can see what is going on
         when no product is displayed.
@@ -1358,7 +1358,7 @@ function apipp_main_page() {
   $pageTxtArr[] = '			<h2>' . __( 'Need Help?', 'amazon-product-in-a-post-plugin' ) . '</h2>';
   $pageTxtArr[] = '			<p>' . __( 'If you need help trying to figure out what you need to do to be approved, or you want us to help you set up your site so you will be approved, please let us know.', 'amazon-product-in-a-post-plugin' ) . '</p>';
   $pageTxtArr[] = '			<p>' . __( 'We do charge a very modest fee for this service. Costs generally range from about $50 to $250 depending on how much help you need setting everything up.', 'amazon-product-in-a-post-plugin' ) . '</p>';
-  $pageTxtArr[] = '			<p>' . __( 'Please email us at', 'amazon-product-in-a-post-plugin' ) . '<strong> <a href="mailto:'.APIAP_HELP_EMAIL.'">'.APIAP_HELP_EMAIL.'</a></strong>. ' . __( 'Or call us at', 'amazon-product-in-a-post-plugin' ) . ' '.APIAP_OWNER_PHONE.' ' . __( 'M-F 9:00am - 4:00pm Pacific.', 'amazon-product-in-a-post-plugin' ) . '</p>';
+  $pageTxtArr[] = '			<p>' . __( 'Please email us at', 'amazon-product-in-a-post-plugin' ) . '<strong> <a href="mailto:'.APIAP_HELP_EMAIL.'">'.APIAP_HELP_EMAIL.'</a></strong></p>';
   $pageTxtArr[] = '			<p><strong>' . __( 'What we CAN help with:', 'amazon-product-in-a-post-plugin' ) . '</strong></p>';
   $pageTxtArr[] = '			<ul style="list-style-type: disc;border-left: 0 none;">';
   $pageTxtArr[] = '				<li><strong>' . __( 'Give you guidance on what you need to do on your site to increase your chances of being approved by Amazon.', 'amazon-product-in-a-post-plugin' ) . '</strong></li>';
