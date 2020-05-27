@@ -38,8 +38,8 @@
 			if($checkTable == ''){
 				add_option("apipp_db_trouble", 'true');	// new in 5.0.0 to check if database is created or not.
 			}
-			add_option("apipp_version", $aws_plugin_version);
-			add_option("apipp_dbversion", $aws_plugin_version);
+			add_option("apipp_version", APIAP_PLUGIN_VER);
+			add_option("apipp_dbversion", APIAP_DBASE_VER);
 		}elseif($dbversion != APIAP_DBASE_VER){
 			$alterSQL = "ALTER TABLE `{$appiptable}` CHANGE `body` `body` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;";
 	      	$testif = $wpdb->query($alterSQL);
