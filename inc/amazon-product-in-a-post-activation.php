@@ -21,17 +21,17 @@
 		$curappipver = get_option("apipp_version");
 		$dbversion = get_option("apipp_dbversion");
 		$appiptable = $wpdb->prefix . 'amazoncache';
+        $charset_collate = $wpdb->get_charset_collate();
 		if((int) get_option('apipp_amazon_cache_sec', '0' ) == 0 )
 			add_option("apipp_amazon_cache_sec", 3600);
 		if($curappipver == ''){
-			$createSQL = "CREATE TABLE IF NOT EXISTS $appiptable (`Cache_id` int(10) NOT NULL auto_increment, `URL` text NOT NULL, `updated` datetime default NULL, `body` longtext, PRIMARY KEY (`Cache_id`), UNIQUE KEY `URL` (`URL`(255)), KEY `Updated` (`updated`)) ENGINE=MyISAM;";
+			$createSQL = "CREATE TABLE IF NOT EXISTS $appiptable (`Cache_id` int(10) NOT NULL auto_increment, `URL` text NOT NULL, `updated` datetime default NULL, `body` longtext, PRIMARY KEY (`Cache_id`), UNIQUE KEY `URL` (`URL`(255)), KEY `Updated` (`updated`)) $charset_collate;";
 	      	$wpdb->query($createSQL);
 			add_option("apipp_version", APIAP_PLUGIN_VER);
 			add_option("apipp_dbversion", APIAP_DBASE_VER);
 		}
 		$checkTable = $wpdb->get_var("SHOW TABLES LIKE '{$appiptable}'");
 		if($curappipver == '' || $checkTable != $appiptable){
-			$charset_collate = $wpdb->get_charset_collate();
 			$createSQL = "CREATE TABLE IF NOT EXISTS $appiptable (`Cache_id` int(10) NOT NULL auto_increment, `URL` text NOT NULL, `updated` datetime default NULL, `body` longtext, PRIMARY KEY (`Cache_id`), UNIQUE KEY `URL` (`URL`(190)), KEY `Updated` (`updated`)) $charset_collate";
 			$temp = $wpdb->query($createSQL);
 			$checkTable = $wpdb->get_var("SHOW TABLES LIKE '{$appiptable}'");
