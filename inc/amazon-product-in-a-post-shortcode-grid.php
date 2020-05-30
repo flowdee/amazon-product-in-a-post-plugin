@@ -147,7 +147,9 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 					}
 				}
 				/* END New Button functionality */
-				
+
+				$buyamzonbutton = apply_filters( 'appip_amazon_button_url', $atts[ 'button_url' ], '', $atts[ 'locale' ] );
+
 				$errors = '';
 				/* NEW */
 				$Regions = __getAmz_regions();
