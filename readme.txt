@@ -6,7 +6,7 @@ Donate link: https://donate.flowdee.de/
 Requires at least: 5.0
 Tested up to: 5.4.1
 Requires PHP: 5.6.0
-Stable tag: 5.1.0
+Stable tag: 5.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -63,6 +63,9 @@ The plugin uses the Amazon Product Advertising API to get product information fr
 * **Some Products or Product data is not available via the Amazon Product Advertising API.** When this happens, the product will not be displayed, or the requested element will not be displayed in the product output.
 * You must have at least twp referral sales every 30 days or you will lose your Amazon Product Advertising Account. If this happens, Amazon will deactivate your Amazon Product Advertising Account and the plugin will no longer display products. You can simply re-sign up for access and change your Amazon Keys in the settings, and they will return (products shortcodes and settings are not deleted, they just cannot be displayed).
 
+## Support ##
+* Browse [issue tracker](https://github.com/flowdee/amazon-product-in-a-post-plugin/issues) on GitHub
+* [Follow us on Twitter](https://twitter.com/kryptonitewp) to stay in contact and informed about updates
 
 == Frequently Asked Questions ==
 See the Installation Page for details on setting up the Products. There is a dynamic FAQs feed in the plugin that will allow for adding new FAQs as they come up. More detailed FAQs will come as questions and solutions arise.
@@ -108,7 +111,14 @@ No additional adjustments are needed unless you want to configure your own CSS s
 13. Amazon Cache Page. Allows you to see and delete cached product data.
 
 == Changelog ==
-= 5.1.0 =
+
+= 5.1.1 (2nd June 2020) =
+* **Tweak:** Optimized database table character set / collation for plugin installation
+* **Fix:** Button image didn't load properly in some cases
+* **Fix:** PHP notice "Undefined variable: $aws_plugin_version"
+* Updated plugin author information
+
+= 5.1.0 (26th May 2020) =
 * **Added:** Added defined constants to make updating developer information easier. (5/23/2020)
 * **Updated:** Added Flowdee as contributor as he will be taking over future updates. (5/25/2020)
 * **Updated:** Updated FAQs feed URL to a new Feed URL location. (5/25/2020)
@@ -465,6 +475,10 @@ Example `[amazon-product-search keywords='disney' search_index='All' item_page='
 * Plugin Release (9/12/2009)
 
 == Upgrade Notice ==
+
+= 5.1.1 (2nd June 2020) =
+* Fixed 2 bugs, optimized database table creation and updated plugin author information.
+
 = 5.1.0 =
 * 5.1.0 Fixed 4 bugs and updated some functionality.
 
