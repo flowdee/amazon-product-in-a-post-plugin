@@ -186,7 +186,7 @@ function apipp_parse_new() { //Custom Save Post items for Quick Add
       $payloadArr[ 'PartnerType' ] = 'Associates';
       $payloadArr[ 'Marketplace' ] = 'www.amazon.' . $locale;
       $payload = json_encode( $payloadArr );
-      $awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+      $awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
       /* END NEW */
 
       $skipCache = false;

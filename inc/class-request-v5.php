@@ -35,7 +35,7 @@ function __getAmz_errors() {
   );
 }
 
-class AmzRequestV5 {
+class Amazon_Product_Request_V5 {
   private $accessKey = null;
   private $secretKey = null;
   private $path = null;
@@ -466,7 +466,7 @@ class AmzRequestV5 {
 				$payloadArr[ 'PartnerType' ] = 'Associates';
 				$payloadArr[ 'Marketplace' ] = 'www.amazon.com';
 				$payload = json_encode( $payloadArr );
-				$awsv5 = new AmzRequestV5( $accessKey, $secretKey, $region, $host, 'getitems' );
+				$awsv5 = new Amazon_Product_Request_V5( $accessKey, $secretKey, $region, $host, 'getitems' );
 				$awsv5->setPayload( $payload );
 				$test = $awsv5->do_request();
 			/* END NEW */

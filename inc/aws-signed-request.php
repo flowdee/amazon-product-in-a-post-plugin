@@ -1,5 +1,5 @@
 <?php
-class AmazonPIP_setup_altDB_hf87 {
+class Amazon_Product_Setup_AltDB_hf87 {
 	private $amzwpdb;
 	private $amzDBSaves = array();
 	private $has_DBSaves = false;
@@ -21,10 +21,12 @@ class AmazonPIP_setup_altDB_hf87 {
 		}
 	}
 }
+
 global $amz_wpdb;
 global $amazonCache;
 global $cacheArrayAPPIP;
-$amz_wpdb = new AmazonPIP_setup_altDB_hf87();
+$amz_wpdb = new Amazon_Product_Setup_AltDB_hf87();
+
 function appip_blowoffarr( $Item, $key = "", $blowoffArr = array() ) {
 	$dontuse = apply_filters( 'amazon_product_in_a_post_blowoffarr_dontuse', array( 'BrowseNodes', 'SimilarProducts' ) );
 	foreach ( $Item as $var => $val ) {
@@ -46,6 +48,7 @@ function appip_blowoffarr( $Item, $key = "", $blowoffArr = array() ) {
 	}
 	return $blowoffArr;
 }
+
 function appip_blowoffarr2( $Item, $key = "", $blowoffArr = array() ) {
 	$dontuse = apply_filters( 'amazon_product_in_a_post_blowoffarr_dontuse', array( 'BrowseNodes', 'SimilarProducts' ) );
 	foreach ( $Item as $var => $val ) {
@@ -67,6 +70,7 @@ function appip_blowoffarr2( $Item, $key = "", $blowoffArr = array() ) {
 	}
 	return $blowoffArr;
 }
+
 function checkImplodeValues( $value, $impval = ',', $rerun = 0 ) {
 	$isli = $impval == 'ul' || $impval == 'ol' ? true : false;
 
@@ -113,6 +117,7 @@ function checkImplodeValues( $value, $impval = ',', $rerun = 0 ) {
 		return $value;
 	}
 }
+
 function get_appipCurrCode( $field = '' ) {
 	$allowed = array( 'USD', 'GBP' );
 	if ( isset( $field ) && $field != '' && in_array( $field, $allowed ) ) {
@@ -120,6 +125,7 @@ function get_appipCurrCode( $field = '' ) {
 	}
 	return '';
 }
+
 function appip_get_JSON_structure( $xmldata, $cached = 0, $url = '' ) {
 	global $cacheArrayAPPIP;
 	if ( $xmldata == '' ){
@@ -140,6 +146,7 @@ function appip_get_JSON_structure( $xmldata, $cached = 0, $url = '' ) {
 	}
 	return $json; 
 }
+
 function amazon_plugin_aws_signed_request( $region = '', $params = array(), $publickey = '', $privatekey = '', $skip = false) {
 	global $wpdb, $amazonCache, $amz_wpdb;
 	$newpxml = array();
@@ -471,6 +478,7 @@ function amazon_plugin_aws_signed_request( $region = '', $params = array(), $pub
 	 * END Return needed products
 	 **************/
 }
+
 function get_appip_signature_requests( $getArr ) {
 	if ( !is_array( $getArr ) || empty( $getArr ) )
 		return array( 'requests', 'asins' );
@@ -574,7 +582,7 @@ function amazon_product_do_API_request( $request = array(), $keystr = array(), $
 				$payloadArr['ItemIds'] = explode(",",$tkASINs);
 			}
 			$payload = json_encode( $payloadArr );
-			$awsv5 = new AmzRequestV5( $accessKey, $secretKey, $region, $host, $reqType );
+			$awsv5 = new Amazon_Product_Request_V5( $accessKey, $secretKey, $region, $host, $reqType );
 			$awsv5->setPayload( $payload );
 			$response = $awsv5->do_request();
 			/* END NEW */
@@ -600,7 +608,8 @@ function amazon_product_do_API_request( $request = array(), $keystr = array(), $
 	}
 	return $newpxml;
 }
-class amazon_CacheClass_OctOne {
+
+class Amazon_Product_Cache_Oct_One {
 	var $amazon_cache = array();
 	var $amazon_search_cache = array();
 
@@ -642,4 +651,5 @@ class amazon_CacheClass_OctOne {
 		}
 	}
 }
-$amazonCache = new amazon_CacheClass_OctOne();
+
+$amazonCache = new Amazon_Product_Cache_Oct_One();

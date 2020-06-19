@@ -1,12 +1,12 @@
 <?php
 
-class AmazonProduct_Shortcode_AmazonElements extends AmazonProduct_ShortcodeClass {
+class Amazon_Product_Shortcode_Elements extends Amazon_Product_Shortcode {
 	static function _setup() {}
 	/*
 	static function appip_do_charlen( $text = '', $charlen = 0 ) {
 		if ( $text == '' || ( int )$charlen == 0 )
 			return $text;
-		return AmazonProduct_ShortcodeClass::amazon_appip_truncate( $text, $charlen );
+		return Amazon_Product_Shortcode::amazon_appip_truncate( $text, $charlen );
 	}
 	*/
 	static function do_shortcode( $atts, $content = '' ) {
@@ -175,7 +175,7 @@ class AmazonProduct_Shortcode_AmazonElements extends AmazonProduct_ShortcodeClas
 			$payloadArr[ 'PartnerType' ] = 'Associates';
 			$payloadArr[ 'Marketplace' ] = 'www.amazon.'.$atts[ 'locale' ];
 			$payload = json_encode( $payloadArr );
-			$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+			$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 			/* END NEW */
 			$skipCache = false;
 			$pxmlNew = amazon_plugin_aws_signed_request( $atts[ 'locale' ], array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $asinR, "AssociateTag" => $atts[ 'partner_id' ], "RequestBy" => 'amazon-elements' ), $atts[ 'public_key' ], $atts[ 'private_key' ], ($skipCache ? true : false) );
@@ -317,9 +317,9 @@ class AmazonProduct_Shortcode_AmazonElements extends AmazonProduct_ShortcodeClas
 									if(isset($replace_titleA[$arr_position]) && $replace_titleA[$arr_position]!=''){
 										$NewTitle = $replace_titleA[$arr_position];
 									}else{
-										$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen(maybe_convert_encoding($result["Title"]),$atts[ 'title_charlen' ]);
+										$NewTitle = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$atts[ 'title_charlen' ]);
 									}
-									//$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen( maybe_convert_encoding( $result[ "Title" ] ), $atts[ 'title_charlen' ] );
+									//$NewTitle = Amazon_Product_Shortcode::appip_do_charlen( maybe_convert_encoding( $result[ "Title" ] ), $atts[ 'title_charlen' ] );
 									$retarr[ $currasin ][ $fieldarr ] = $NewTitle;
 									break;
 								case 'author_clean':
@@ -391,9 +391,9 @@ class AmazonProduct_Shortcode_AmazonElements extends AmazonProduct_ShortcodeClas
 									if(isset($replace_titleA[$arr_position]) && $replace_titleA[$arr_position]!=''){
 										$NewTitle = $replace_titleA[$arr_position];
 									}else{
-										$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
+										$NewTitle = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
 									}
-									//$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen( maybe_convert_encoding( $result3[ "Title" ] ), $atts[ 'title_charlen' ] );
+									//$NewTitle = Amazon_Product_Shortcode::appip_do_charlen( maybe_convert_encoding( $result3[ "Title" ] ), $atts[ 'title_charlen' ] );
 									if ( !isset( $labels[ 'title-wrap' ][ $arr_position ] ) && !isset( $labels[ 'title' ][ $arr_position ] ) ) {
 										$labels[ 'title' ][ $arr_position ] = '<' . $wrap . ' class="appip-title"><a href="' . $linkURL . '"' . $target . $nofollow . '>' . $NewTitle . '</a></' . $wrap . '>';
 									} elseif ( !isset( $labels[ 'title-wrap' ][ $arr_position ] ) && isset( $labels[ 'title' ][ $arr_position ] ) ) {
@@ -657,7 +657,7 @@ class AmazonProduct_Shortcode_AmazonElements extends AmazonProduct_ShortcodeClas
 		}
 	}
 }
-$AppipShortcodeElements = new AmazonProduct_Shortcode_AmazonElements( array( 'amazon-element', 'amazon-elements' ) );
+$AppipShortcodeElements = new Amazon_Product_Shortcode_Elements( array( 'amazon-element', 'amazon-elements' ) );
 
 function appip_elements_php_block_init() {
 	if ( function_exists( 'register_block_type' ) ) {
@@ -753,7 +753,7 @@ function appip_elements_php_block_init() {
 			),
 			'editor_style' => $pluginStyles,
 			'editor_script' => $pluginScripts,
-			'render_callback' => array( 'AmazonProduct_Shortcode_AmazonElements', 'do_shortcode' ),
+			'render_callback' => array( 'Amazon_Product_Shortcode_Elements', 'do_shortcode' ),
 		) );
 	}
 }

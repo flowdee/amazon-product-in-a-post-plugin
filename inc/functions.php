@@ -280,7 +280,7 @@ if ( !function_exists( 'aws_prodinpost_filter_content_test' ) ) {
 			$payloadArr[ 'PartnerType' ] = 'Associates';
 			$payloadArr[ 'Marketplace' ] = 'www.amazon.'.$locale;
 			$payload = json_encode( $payloadArr );
-			$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+			$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 			/* END NEW */
 			$skipCache = false;//cache-only-loop-start
 			$pxmlNew = amazon_plugin_aws_signed_request( $locale, array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $grASIN, "AssociateTag" => $associalTag, "RequestBy" => 'cache-only-loop-start' ), $accessKey, $secretKey, ($skipCache ? true : false) );
@@ -433,7 +433,7 @@ if ( !function_exists( 'aws_prodinpost_filter_excerpt_test' ) ) {
 				$payloadArr[ 'PartnerType' ] = 'Associates';
 				$payloadArr[ 'Marketplace' ] = 'www.amazon.'.$locale;
 				$payload = json_encode( $payloadArr );
-				$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+				$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 				/* END NEW */
 				$skipCache = false;//cache-only-loop-start
 				$pxmlNew = amazon_plugin_aws_signed_request( $locale, array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $grASIN, "AssociateTag" => $associalTag, "RequestBy" => 'cache-only-loop-start' ), $accessKey, $secretKey, ($skipCache ? true : false) );	
@@ -567,7 +567,7 @@ function amazon_plugin_postlist_detect_and_cache_ASINs( $posts ) {
 			}
 			//get scodes				
 			foreach ( $scode_attrs as $scode ) {
-				if ( AmazonProduct_ShortcodeClass::appip_has_shortcode( $apposts->post_content, $scode ) ) {
+				if ( Amazon_Product_Shortcode::appip_has_shortcode( $apposts->post_content, $scode ) ) {
 					if ( preg_match_all( '/' . $pattern . '/s', $apposts->post_content, $matches ) && array_key_exists( 2, $matches ) && in_array( $scode, $matches[ 2 ] ) ) {
 						foreach ( $matches[ 3 ] as $a ) {
 							$attrs = shortcode_parse_atts( $a );
@@ -620,7 +620,7 @@ function amazon_plugin_postlist_detect_and_cache_ASINs( $posts ) {
 			$payloadArr[ 'PartnerType' ] = 'Associates';
 			$payloadArr[ 'Marketplace' ] = 'www.amazon.'.$locale;
 			$payload = json_encode( $payloadArr );
-			$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+			$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 			/* END NEW */
 			$skipCache = false;//cache-only-loop-start
 			$pxmlNew = amazon_plugin_aws_signed_request( $locale, array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $grASIN, "AssociateTag" => $associalTag, "RequestBy" => 'cache-only-loop-start' ), $accessKey, $secretKey, ($skipCache ? true : false) );

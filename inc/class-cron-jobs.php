@@ -1,5 +1,5 @@
 <?php
-class AmazonProductPost_addCronSupport {
+class Amazon_Product_Add_Cron_Support {
   function __construct() {
     add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
   }
@@ -14,4 +14,4 @@ class AmazonProductPost_addCronSupport {
     return $schedules;
   }
 }
-new AmazonProductPost_addCronSupport();
+new Amazon_Product_Add_Cron_Support();

@@ -46,9 +46,9 @@ if(!function_exists('getSingleAmazonProduct')){
 		global $appip_templates;
 		global $appipTimestampMsgPrinted;
 		
-		$extratext 			= apply_filters('getSingleAmazonProduct_extratext',$extratext);
-		$extrabutton		= apply_filters('getSingleAmazonProduct_extrabutton',$extrabutton);
-		$manual_array		= apply_filters('getSingleAmazonProduct_manual_array',$manual_array);
+		$extratext 			= apply_filters('getSingleAmazon_Product_extratext',$extratext);
+		$extrabutton		= apply_filters('getSingleAmazon_Product_extrabutton',$extrabutton);
+		$manual_array		= apply_filters('getSingleAmazon_Product_manual_array',$manual_array);
 		$manual_public_key 	= isset($manual_array['public_key'])	&& $manual_array['public_key'] !='' 	? $manual_array['public_key'] 	: APIAP_PUB_KEY ;
 		$manual_private_key	= isset($manual_array['private_key'])	&& $manual_array['private_key'] !='' 	? $manual_array['private_key'] 	: APIAP_SECRET_KEY ;
 		$manual_locale 		= isset($manual_array['locale']) 		&& $manual_array['locale']!='' 			? $manual_array['locale'] 		: APIAP_LOCALE ;
@@ -60,9 +60,9 @@ if(!function_exists('getSingleAmazonProduct')){
 		$apippnewwindowhtml	= $manual_new_window ? ' target="amazonwin" ' : '';
 		if($manual_partner_id == ''){$manual_partner_id = 'wolvid-20';} //have to give it some user id or it will fail.
 		$errors 				= '';
-		$appip_responsegroup 	= apply_filters('getSingleAmazonProduct_response_group',"Large,Reviews,Offers,Variations");
-		$appip_operation 		= apply_filters('getSingleAmazonProduct_operation',"ItemLookup");
-		$appip_idtype	 		= apply_filters('getSingleAmazonProduct_type',"ASIN");
+		$appip_responsegroup 	= apply_filters('getSingleAmazon_Product_response_group',"Large,Reviews,Offers,Variations");
+		$appip_operation 		= apply_filters('getSingleAmazon_Product_operation',"ItemLookup");
+		$appip_idtype	 		= apply_filters('getSingleAmazon_Product_type',"ASIN");
 		$appip_text_lgimage 	= apply_filters('appip_text_lgimage', __("See larger image",'amazon-product-in-a-post-plugin'));
 		$appip_text_listprice 	= apply_filters('appip_text_listprice',__("List Price:",'amazon-product-in-a-post-plugin'));
 		$appip_text_newfrom 	= apply_filters('appip_text_newfrom',__("New From:",'amazon-product-in-a-post-plugin'));
@@ -85,7 +85,7 @@ if(!function_exists('getSingleAmazonProduct')){
 		
 		// Main Amazon API Call
 		if ( $asin != '' && $manual_public_key != '' && $manual_private_key != ''){
-			$ASIN 					= apply_filters('getSingleAmazonProduct_asin',(is_array($asin) ? implode(',',$asin) : $asin)); //valid ASIN or ASINs
+			$ASIN 					= apply_filters('getSingleAmazon_Product_asin',(is_array($asin) ? implode(',',$asin) : $asin)); //valid ASIN or ASINs
 			$asinR					= explode(",",$ASIN);
 			$description			= isset($manual_array['desc'])? (int) $manual_array['desc'] : 0 ; //set to no by default - too many complaints!
 			$show_list				= isset($manual_array['listprice'])? (int) $manual_array['listprice'] : 0 ;
@@ -192,7 +192,7 @@ if(!function_exists('getSingleAmazonProduct')){
 			$payloadArr[ 'PartnerType' ] = 'Associates';
 			$payloadArr[ 'Marketplace' ] = 'www.amazon.'.$manual_locale;
 			$payload = json_encode( $payloadArr );
-			$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+			$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 			/* END NEW */
 			$skipCache = false;
 			$pxmlNew = amazon_plugin_aws_signed_request( $manual_locale, array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $asinR, "AssociateTag" => $manual_partner_id, "RequestBy" => 'amazon-products' ), $manual_public_key, $manual_private_key, ($skipCache ? true : false) );
@@ -410,7 +410,7 @@ if(!function_exists('getSingleAmazonProduct')){
 								if(isset($replace_title[$arr_position]) && $replace_title[$arr_position]!=''){
 									$title = $replace_title[$arr_position];
 								}else{
-									$title = AmazonProduct_ShortcodeClass::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
+									$title = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
 								}
 								$newdesc 	= '';
 								if(is_array($result["ItemDesc"]) && $description == 1 && isset($result["ItemDesc"][0])){
@@ -509,7 +509,7 @@ if(!function_exists('getSingleAmazonProduct')){
 								if(isset($replace_title[$arr_position]) && $replace_title[$arr_position] !='' ){
 									$title = $replace_title[$arr_position];
 								}else{
-									$title = AmazonProduct_ShortcodeClass::appip_do_charlen(maybe_convert_encoding($result["Title"]), $title_charlen);
+									$title = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]), $title_charlen);
 								}
 								if(strtolower($title) != 'null' && (bool) $hide_title !== true )
 									$returnval .= '	<h2 class="amazon-asin-title"><a href="' . $linkURL . '" '. $apippnewwindowhtml .$nofollow.'><span class="asin-title">'.$title.'</span></a></h2>'."\n";

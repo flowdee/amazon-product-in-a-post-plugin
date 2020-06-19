@@ -1,5 +1,5 @@
 <?php
-class amazonAPPIP_NewRequest{
+class Amazon_Product_New_Request{
 	var $type;
 	function __construct($type ='ajax'){
 		$this->type = $type;
@@ -266,7 +266,7 @@ class amazonAPPIP_NewRequest{
 		$payloadArr[ 'PartnerType' ] = 'Associates';
 		$payloadArr[ 'Marketplace' ] = 'www.amazon.'.APIAP_LOCALE ;
 		$payload = json_encode( $payloadArr );
-		$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+		$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 		/* END NEW */
 		$skipCache = false;
 		$asinR = null;
@@ -375,4 +375,5 @@ class amazonAPPIP_NewRequest{
 		return 'Nothing';
 	}
 }
-new amazonAPPIP_NewRequest();
+
+new Amazon_Product_New_Request();

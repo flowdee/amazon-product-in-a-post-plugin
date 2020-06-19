@@ -1,5 +1,5 @@
 <?php
-class AmazonProduct_ShortcodeClass{
+class Amazon_Product_Shortcode{
 	public $shortcode;
 	
 	public function __construct( $scode = '' ){
@@ -43,11 +43,11 @@ class AmazonProduct_ShortcodeClass{
 	}
 
 	static function do_shortcode( $atts, $content = '' ){
-		die( 'function AmazonProduct_ShortcodeClass::do_shortcde() must be over-ridden in a sub-class.' );
+		die( 'function Amazon_Product_Shortcode::do_shortcde() must be over-ridden in a sub-class.' );
 	}
 	
 	static function _setup( ){
-		die( 'function AmazonProduct_ShortcodeClass::_setup() must be over-ridden in a sub-class.' );
+		die( 'function Amazon_Product_Shortcode::_setup() must be over-ridden in a sub-class.' );
 	}
 	
 	static function appip_do_charlen( $text ='', $charlen = 0 ){
