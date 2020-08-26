@@ -84,7 +84,7 @@
 			}
 		});
 		$('.taxonomy_block_post').show();
-		$( ".apip-ptypecb" ).live('click',function() {
+		$( document ).on('click', '.apip-ptypecb',function() {
 			var apptypeval = $(this).val();
 			$('.taxonomy_blocks').hide();				
 			$('.taxonomy_block_'+apptypeval).show('slow');	
