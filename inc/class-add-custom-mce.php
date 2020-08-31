@@ -1,6 +1,7 @@
 <?php
 
-class AmazonProductPost_addCustomMCE_FCM {
+class Amazon_Product_Add_Custom_MCE {
+
 	function __construct(){
 		add_action( 'admin_head', array( $this, 'custom_add_tmce_button' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'custom_tmce_css' ) );
@@ -45,4 +46,4 @@ class AmazonProductPost_addCustomMCE_FCM {
 
 }
 
-new AmazonProductPost_addCustomMCE_FCM();
+new Amazon_Product_Add_Custom_MCE();

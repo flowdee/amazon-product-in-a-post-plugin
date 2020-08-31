@@ -13,7 +13,7 @@ If you need to add a new Gutenberg Block options, you need to add it to the foll
 ** is available in the shortcode parameters by default, so remember to update shortcode
 ** documentation pages with new parameters so those using shortcodes will know how to use them.
 */
-class AmazonProduct_Shortcode_AmazonProducts extends AmazonProduct_ShortcodeClass {
+class Amazon_Product_Shortcode_Products extends Amazon_Product_Shortcode {
 	static function _setup() {}
 	static function do_shortcode( $atts, $content = '' ) {
 		/* SECTION 1 - ATTS Cleaning */
@@ -128,7 +128,7 @@ class AmazonProduct_Shortcode_AmazonProducts extends AmazonProduct_ShortcodeClas
 		return getSingleAmazonProduct( $atts[ 'asin' ], $content, 0, $amazon_array, $atts[ 'desc' ] );
 	}
 }
-new AmazonProduct_Shortcode_AmazonProducts( array( 'amazonproduct', 'amazonproducts', 'AMAZONPRODUCT', 'AMAZONPRODUCTS' ) );
+new Amazon_Product_Shortcode_Products( array( 'amazonproduct', 'amazonproducts', 'AMAZONPRODUCT', 'AMAZONPRODUCTS' ) );
 
 function appip_products_php_block_init() {
 	global $amazon_styles_enqueued;
@@ -254,7 +254,7 @@ function appip_products_php_block_init() {
 			'editor_style' => $pluginStyles,
 			'editor_script' => $pluginScripts,
 			// This lets us take advantage of the Shorcode funcitonality we already have in place.
-			'render_callback' => array( 'AmazonProduct_Shortcode_AmazonProducts', 'do_shortcode' ),
+			'render_callback' => array( 'Amazon_Product_Shortcode_Products', 'do_shortcode' ),
 		) );
 	}
 }

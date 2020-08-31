@@ -262,7 +262,7 @@
 					||
 					(isset($_REQUEST['appip_debug_submit_dev']) && $_REQUEST['appip_debug_submit_dev'] != '' )
 					){
-						$temp = AmazonDebugInfoClass::generate_server_data(true);
+						$temp = Amazon_Product_Debug_Info::generate_server_data(true);
 					}
 					amazon_product_delete_all_cache('option-update');
 					$curtab = isset($_REQUEST['appip_current_tab']) && $_REQUEST['appip_current_tab'] !== '' ? esc_attr($_REQUEST['appip_current_tab']) : 'general';
@@ -589,8 +589,8 @@
 		    	<div class="align-top"><?php echo $values['desc']; ?></div>
                 <?php 
 				if($id == 'apipp_amazon_debugkey' ){
-					echo "<br /><br />".AmazonDebugInfoClass::get_email_input();
-					AmazonDebugInfoClass::generate_server_data();	
+					echo "<br /><br />".Amazon_Product_Debug_Info::get_email_input();
+					Amazon_Product_Debug_Info::generate_server_data();
 				} ?>
 			</div>
 		</div>

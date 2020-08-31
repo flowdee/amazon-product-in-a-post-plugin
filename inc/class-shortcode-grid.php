@@ -1,22 +1,22 @@
 <?php
 // if someone has the shortcode plugin add-on installed, let it be - otherwise:
 if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
-	class AmazonProduct_Shortcode_Grid extends AmazonProduct_ShortcodeClass {
+	class Amazon_Product_Shortcode_Grid extends Amazon_Product_Shortcode {
 
 		static function _setup() {
 			//add_action( 'wp_enqueue_scripts', array( $this, 'front_enqueue' ), 100 );
-			add_filter( 'amazon-grid-fields', array( 'AmazonProduct_Shortcode_Grid', 'add_fields' ) );
-			add_filter( 'amazon-grid-columns', array( 'AmazonProduct_Shortcode_Grid', 'grid_columns' ) );
-			add_filter( 'amazon_product_shortcode_help_content', array( 'AmazonProduct_Shortcode_Grid', 'do_added_shortcode_help_content' ), 100, 2 );
-			add_filter( 'amazon_product_shortcode_help_tabs', array( 'AmazonProduct_Shortcode_Grid', 'do_added_shortcode_help_tab' ), 100, 2 );
-			add_filter( 'amazon_product_in_a_post_plugin_shortcode_list', array('AmazonProduct_Shortcode_Grid','shortcode_list') );
+			add_filter( 'amazon-grid-fields',                             array( 'Amazon_Product_Shortcode_Grid', 'add_fields' ) );
+			add_filter( 'amazon-grid-columns',                            array( 'Amazon_Product_Shortcode_Grid', 'grid_columns' ) );
+			add_filter( 'amazon_product_shortcode_help_content',          array( 'Amazon_Product_Shortcode_Grid', 'do_added_shortcode_help_content' ), 100, 2 );
+			add_filter( 'amazon_product_shortcode_help_tabs',             array( 'Amazon_Product_Shortcode_Grid', 'do_added_shortcode_help_tab' ), 100, 2 );
+			add_filter( 'amazon_product_in_a_post_plugin_shortcode_list', array( 'Amazon_Product_Shortcode_Grid','shortcode_list') );
 		}
-		
+
 		public static function shortcode_list($text = array()){
 			$text[] = '<li><a href="?page=apipp_plugin-shortcode&tab=amazon-product-grid" class="amazon-product-grid"><strong>amazon-grid</strong></a><br/>' . __( 'A Shortcode for displaying Amazon Prodcts in a Grid.', 'amazon-product-in-a-post-plugin' ) . '</li>';
 			return $text;
 		}
-		
+
 		static function do_shortcode( $atts, $content = '' ) {
 			global $post;
 			global $apippopennewwindow;
@@ -64,7 +64,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 						return '<div style="text-align:center;background: #f5f5f5;padding: 10px 5px;border: 1px solid #f48db0;"><strong>'.__('Amazon Grid Block','amazon-product-in-a-post-plugin').'</strong><br>'.__('Please add at least one ASIN.','amazon-product-in-a-post-plugin').'</div>';
 				}else{
 					if( (bool) $single_only === true && !is_singular() )
-						return '';			
+						return '';
 				}
 			}elseif( !is_admin() && (bool) $single_only && !is_singular()) {
 				return '';
@@ -82,13 +82,13 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 				$replace_titleA[] = $atts[ 'replace_title' ];
 			}
 			$title_charlen = $atts[ 'title_charlen' ];
-			
+
 			$asin = $atts[ 'asin' ];
 			if ( strpos( $atts[ 'asin' ], ',' ) !== false )
 				$asin = explode( ',', str_replace(array("<br/>","<br>","\r","\n","\r\n","\t",", ","  "," ",",,"),array('','','','','','',',','','',','),$atts[ 'asin' ] ) );
 			//$asin can be array, comma separated string or single ASIN
 			$use_carturl =  isset( $atts[ 'use_carturl' ]) && $atts[ 'use_carturl' ] == '1' ? '1' : '0';
-			$button_carturl = isset( $atts['button_use_carturl']) && $atts[ 'button_use_carturl' ] == '1'  ? '1'  : $use_carturl ; 
+			$button_carturl = isset( $atts['button_use_carturl']) && $atts[ 'button_use_carturl' ] == '1'  ? '1'  : $use_carturl ;
 			$wrap = str_replace(array('<','>'), array('',''),$atts['container']);
 			$prodLinkField = apply_filters( 'amazon-grid-link', ((bool)$atts[ 'use_carturl' ] || (int)$atts[ 'use_carturl' ] == 1 ? 'CartURL' : 'DetailPageURL'), $post ); //CartURL
 			$target = $atts['target'];
@@ -105,7 +105,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 					if( isset( $keytemp[0] ) && isset( $keytemp[1] ) ){
 						// this takes care of alias fields.
 						$lbltemp = '';
-						switch(strtolower($keytemp[0])){ 
+						switch(strtolower($keytemp[0])){
 							case 'list-price': // alias for 'list'
 							case 'list price': // alias for 'list'
 								$lbltemp = 'list';
@@ -164,7 +164,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 				$payloadArr[ 'PartnerType' ] = 'Associates';
 				$payloadArr[ 'Marketplace' ] = 'www.amazon.'.$atts[ 'locale' ];
 				$payload = json_encode( $payloadArr );
-				$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+				$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 				/* END NEW */
 				$skipCache = false;
 				$pxmlNew = amazon_plugin_aws_signed_request( $atts[ 'locale' ], array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $asinR, "AssociateTag" => $atts[ 'partner_id' ], "RequestBy" => 'amazon-grid' ), $atts[ 'public_key' ], $atts[ 'private_key' ], ($skipCache ? true : false) );
@@ -196,7 +196,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 								foreach ( $r3 as $ke => $ritem3 ) {
 									$totalResult3[] = $ritem3;
 								}
-							}							
+							}
 						}elseif(isset($pxml['Items'])){
 							//only items
 							$r2 = $awsv5->appip_plugin_FormatASINResult( $pxml, 1, $asinR, $pxmlkey);
@@ -221,7 +221,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 					//errors and items
 					$itemErrors = true;
 					/*
-					loop the errors- and looks for item errors only, 
+					loop the errors- and looks for item errors only,
 					then put into the return array for that ASIN (even though it is invalid).
 					This will output the error into the HTML as a comment so user can see what is going on
 					when no product is displayed.
@@ -256,11 +256,11 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 						return '<pre style="display:none;" class="appip-errors">APPIP ERROR: amazon-grid['."\n" . implode( "\n", $errmsg ) ."\n". ']</pre>';
 					}
 				} else {
-					$resultarr = isset( $totalResult2 ) && !empty( $totalResult2 ) ? $totalResult2 : array(); 
-					$resultarr3 = isset( $totalResult3 ) && !empty( $totalResult3 ) ? $totalResult3 : array(); 
+					$resultarr = isset( $totalResult2 ) && !empty( $totalResult2 ) ? $totalResult2 : array();
+					$resultarr3 = isset( $totalResult3 ) && !empty( $totalResult3 ) ? $totalResult3 : array();
 					$errors_prod = array();
 					$arr_position = 0;
-					
+
 				if ( is_array( $resultarr ) ):
 					$retarr = array();
 					$newErr = '';
@@ -278,7 +278,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 							$result3 = $awsv5->GetAPPIPReturnVals_V5( $result, $totalResult3[$arr_position], $Errors );
 							$result = array_merge($result,$result3);
 							$currasin = $result[ 'ASIN' ];
-					
+
 							if ( isset( $result[ 'NoData' ] ) && $result[ 'NoData' ] == '1' ):
 								$retarr[ $currasin ]['Errors'] = '<'.$wrap.' style="display:none;" class="appip-errors">APPIP ERROR:nodata_grid[' . print_r($result[ 'Errors' ], true ) . '</'.$wrap.'>';
 							elseif ( empty( $result[ 'ASIN' ] ) || $result[ 'ASIN' ] == 'Array' ):
@@ -301,16 +301,16 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 								else
 									$nofollow = ' rel="nofollow"';
 								$nofollow = apply_filters( 'appip_template_add_nofollow', $nofollow, $result );
-					
+
 								foreach ( $fielda as $fieldarr ) {
 									switch ( strtolower( $fieldarr ) ) {
 										case 'title':
 											if(isset($replace_titleA[$arr_position]) && $replace_titleA[$arr_position]!=''){
 												$NewTitle = $replace_titleA[$arr_position];
 											}else{
-												$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
+												$NewTitle = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
 											}
-											//$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen(maybe_convert_encoding($result["Title"]), $atts['title_charlen']);
+											//$NewTitle = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]), $atts['title_charlen']);
 											$titleWrap = isset($labels['title-wrap'][$arr_position]) && $labels['title-wrap'][$arr_position]!= '' ? $labels['title-wrap'][$arr_position] : 'h3';
 											$titleLabel = isset($labels['title'][$arr_position]) && $labels['title'][$arr_position]!= '' ? $labels['title'][$arr_position].': ' : '';
 											$retarr[ $currasin ][ $fieldarr ] = '<' . $titleWrap . ' class="amazon-grid-title-' . $titleWrap . '"><a href="' . $linkURL.'"' . $target . $nofollow . '>' . $titleLabel . $NewTitle . '</a></' . $titleWrap . '>';
@@ -534,8 +534,8 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 		}
 
 		public static function do_added_shortcode_help_tab($tab = array(), $current_tab = '' ) {
-			$tab[] = '<a id="amazon-product-grid" class="appiptabs nav-tab ' . ( $current_tab == 'amazon-product-grid' ? 'nav-tab-active' : '' ) . '" href="?page=apipp_plugin-shortcode&tab=amazon-product-grid">' . __( 'Product Grid', 'amazon-product-in-a-post-plugin' ) . '</a>'; 
-			return $tab; 
+			$tab[] = '<a id="amazon-product-grid" class="appiptabs nav-tab ' . ( $current_tab == 'amazon-product-grid' ? 'nav-tab-active' : '' ) . '" href="?page=apipp_plugin-shortcode&tab=amazon-product-grid">' . __( 'Product Grid', 'amazon-product-in-a-post-plugin' ) . '</a>';
+			return $tab;
 		}
 
 		public static function grid_columns( $count = 3 ) {
@@ -557,8 +557,9 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 		}
 
 	}
-	new AmazonProduct_Shortcode_Grid( 'amazon-grid' );
-	
+
+	new Amazon_Product_Shortcode_Grid( 'amazon-grid' );
+
 	function appip_grid_php_block_init() {
 		if( function_exists('register_block_type') ){
 			global $apippopennewwindow,$amazon_styles_enqueued;
@@ -582,7 +583,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 					wp_add_inline_style( 'amazon-frontend-styles', $data );
 				$amazon_styles_enqueued = true;
 			}
-			
+
 			wp_register_script(
 				'amazon-grid-block',
 				plugins_url( '/blocks/php-block-grid.js', __FILE__ ),
@@ -657,7 +658,7 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 				),
 				'editor_style' => $pluginStyles,
 				'editor_script' => $pluginScripts,
-				'render_callback' => array('AmazonProduct_Shortcode_Grid', 'do_shortcode'),
+				'render_callback' => array('Amazon_Product_Shortcode_Grid', 'do_shortcode'),
 			) );
 		}
 	}

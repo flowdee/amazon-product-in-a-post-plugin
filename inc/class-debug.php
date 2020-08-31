@@ -1,5 +1,6 @@
 <?php
-class AmazonDebugInfoClass {
+class Amazon_Product_Debug_Info {
+
 	public static function generate_server_data($send = false, $main_debug = false) {
 		global $wpdb;
 		global $wp_version;
@@ -274,9 +275,9 @@ function apipp_parse_debug($query){
 			</head>
 			<body style="background-color:#fff;font-size:16px;font-family:sans-serif;">
 			';
-		$debugdata = AmazonDebugInfoClass::generate_server_data(false, true);
+		$debugdata = Amazon_Product_Debug_Info::generate_server_data(false, true);
 		echo $debugdata;
-		$sample = new amazonAPPIP_NewRequest( 'debug' );
+		$sample = new Amazon_Product_New_Request( 'debug' );
 		echo '<h2 class="debug_title">Sample Request:</h2>';
 		echo '<ul class="debug_settings"><li styke="font-size: 13px;font-weight: normal;font-family: monospace;">';
 		$sample->appip_do_settings_test_debug();

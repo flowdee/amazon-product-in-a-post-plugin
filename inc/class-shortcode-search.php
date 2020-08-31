@@ -1,6 +1,6 @@
 <?php
 
-class AmazonProduct_Shortcode_Search extends AmazonProduct_ShortcodeClass{
+class Amazon_Product_Shortcode_Search extends Amazon_Product_Shortcode{
 	static function _setup( ){}
 	static function do_shortcode($atts, $content = ''){
 		global $amazonhiddenmsg, $amazonerrormsg, $apippopennewwindow, $apippnewwindowhtml, $post;
@@ -155,7 +155,7 @@ class AmazonProduct_Shortcode_Search extends AmazonProduct_ShortcodeClass{
 			$payloadArr[ 'PartnerType' ] = 'Associates';
 			$payloadArr[ 'Marketplace' ] = 'www.amazon.'.$atts[ 'locale' ];
 			$payload = json_encode( $payloadArr );
-			$awsv5 = new AmzRequestV5( null, null, null, null, 'single' );
+			$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 			/* END NEW */
 			$skipCache = false;
 			$pxmlNew = amazon_plugin_aws_signed_request( $atts[ 'locale' ], array( "Operation" => "SearchItems", "payload" => $payloadArr, "ItemId" => array(), "AssociateTag" => $atts[ 'partner_id' ], "RequestBy" => 'amazon-search' ), $atts[ 'public_key' ], $atts[ 'private_key' ], ($skipCache ? true : false) );
@@ -319,7 +319,7 @@ class AmazonProduct_Shortcode_Search extends AmazonProduct_ShortcodeClass{
 							foreach($fielda as $fieldarr){
 								switch(strtolower($fieldarr)){
 									case 'title_clean':
-										$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen( maybe_convert_encoding( $result[ "Title" ] ), $atts[ 'title_charlen' ] );
+										$NewTitle = Amazon_Product_Shortcode::appip_do_charlen( maybe_convert_encoding( $result[ "Title" ] ), $atts[ 'title_charlen' ] );
 										$retarr[$currasin][$fieldarr] = $NewTitle;
 										break;
 									case 'author_clean':
@@ -399,7 +399,7 @@ class AmazonProduct_Shortcode_Search extends AmazonProduct_ShortcodeClass{
 										break;
 									case 'title':
 
-										$NewTitle = AmazonProduct_ShortcodeClass::appip_do_charlen( maybe_convert_encoding( $result[ "Title" ] ), $atts[ 'title_charlen' ] );
+										$NewTitle = Amazon_Product_Shortcode::appip_do_charlen( maybe_convert_encoding( $result[ "Title" ] ), $atts[ 'title_charlen' ] );
 										if(!isset($labels['title-wrap']) && !isset($labels['title'])){
 											$temptitle = '<div class="appip-title first-spot"><a href="'.$linkURL.'"'.$target.$nofollow.'>'. $NewTitle.'</a></div>';
 										}elseif(!isset($labels['title-wrap']) && isset($labels['title'])){
@@ -703,7 +703,7 @@ class AmazonProduct_Shortcode_Search extends AmazonProduct_ShortcodeClass{
 		}
 	}
 }
-new AmazonProduct_Shortcode_Search('amazon-product-search');
+new Amazon_Product_Shortcode_Search('amazon-product-search');
 
 function appip_search_php_block_init() {
 	if ( function_exists( 'register_block_type' ) ) {
@@ -834,7 +834,7 @@ function appip_search_php_block_init() {
 			),
 			'editor_style' => $pluginStyles,
 			'editor_script' => $pluginScripts,
-			'render_callback' => array( 'AmazonProduct_Shortcode_Search', 'do_shortcode' ),
+			'render_callback' => array( 'Amazon_Product_Shortcode_Search', 'do_shortcode' ),
 		) );
 	}
 }

@@ -242,38 +242,38 @@ register_deactivation_hook(__FILE__,'appip_deinstall');
 			ini_set("display_errors", 0); //turns off error display
 	}
 
-// Includes
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-activation.php"); 					//Install and Uninstall hooks
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-functions.php"); 					//Functions
-	require_once( plugin_dir_path( __FILE__ ).'inc/amazon-product-in-a-post-debug.php' ); 						//debug functionality for plugin
-	require_once( plugin_dir_path( __FILE__ ).'inc/amazon-product-in-a-post-PAAPIV5-class.php' ); 						//New 5.0 Class
+    // Includes
+	require_once( plugin_dir_path( __FILE__ )."inc/activation.php");                    //Install and Uninstall hooks
+	require_once( plugin_dir_path( __FILE__ )."inc/functions.php");                     //Functions
+	require_once( plugin_dir_path( __FILE__ ).'inc/class-debug.php' );                  //debug functionality for plugin
+	require_once( plugin_dir_path( __FILE__ ).'inc/class-request-v5.php' );                //New 5.0 Class
 	if (version_compare(phpversion(), '5.4.0', '<'))
-		require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-sha256.inc.php"); 				//3.8.0+ only require if PHP less than 5.4.0 ('hash' function was introduced then)
+		require_once( plugin_dir_path( __FILE__ )."inc/class-sha256.php");              //3.8.0+ only require if PHP less than 5.4.0 ('hash' function was introduced then)
 
 	function appip_gutenberg_editor_test() {
 		global $APIAP_USE_GUTENBERG;
 		$APIAP_USE_GUTENBERG = appip_check_blockEditor_is_active();
 	}
-	add_action( 'plugins_loaded', 'appip_gutenberg_editor_test' );												//4.0.4+ Gutenberg Check
+	add_action( 'plugins_loaded', 'appip_gutenberg_editor_test' );                          //4.0.4+ Gutenberg Check
 
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-get-product.php"); 					//main product function
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-aws-signed-request.php");			//major workhorse for plugin
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-aws-signed-request-test.php"); 		//class for testing the request.
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-shortcode-class.php"); 				//shortcode class for plugin
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-shortcode-amazon-elements.php"); 	//amazon-element shortcodes for plugin
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-shortcode-amazon-products.php"); 	//amazonproducr shortcodes for plugin
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-shortcode-search.php"); 			//search shortcodes for plugin
-	//require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-cron-jobs.php"); 					//cron job functions 5.1.0
+	require_once( plugin_dir_path( __FILE__ )."inc/get-product.php");                   //main product function
+	require_once( plugin_dir_path( __FILE__ )."inc/aws-signed-request.php");            //major workhorse for plugin
+	require_once( plugin_dir_path( __FILE__ )."inc/aws-signed-request-test.php");       //class for testing the request.
+	require_once( plugin_dir_path( __FILE__ )."inc/class-shortcode.php");               //shortcode class for plugin
+	require_once( plugin_dir_path( __FILE__ )."inc/class-shortcode-elements.php");      //amazon-element shortcodes for plugin
+	require_once( plugin_dir_path( __FILE__ )."inc/class-shortcode-products.php");      //amazonproducr shortcodes for plugin
+	require_once( plugin_dir_path( __FILE__ )."inc/class-shortcode-search.php");        //search shortcodes for plugin
+	//require_once( plugin_dir_path( __FILE__ )."inc/class-cron-jobs.php");                 //cron job functions 5.1.0
 	function apipp_plugins_loaded(){
 		// we need to make sure this loads late enough so the plugin takes priority (may change later if needed)
-		require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-shortcode-grid.php"); 			//grid shortcodes for plugin (add-on plugin overrides this). ADDED 3.7.1
+		require_once( plugin_dir_path( __FILE__ )."inc/class-shortcode-grid.php");      //grid shortcodes for plugin (add-on plugin overrides this). ADDED 3.7.1
 	}
 	add_action('plugins_loaded', 'apipp_plugins_loaded', 11);
-	require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-featured-image.php"); 				//Featured Image Function for URL based Amazon Featured images.
+	require_once( plugin_dir_path( __FILE__ )."inc/class-featured-image.php");          //Featured Image Function for URL based Amazon Featured images.
 	if(is_admin()){
-		require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-tools.php"); 					//edit box for plugin
-		require_once( plugin_dir_path( __FILE__ )."inc/amazon-product-in-a-post-options.php"); 					//admin options for plugin
-		//require_once( plugin_dir_path( __FILE__ ).'inc/amazon-product-in-a-post-add-tmce.php' );				//editor Button Funcitonality - Temp Removed in 4.0
+		require_once( plugin_dir_path( __FILE__ )."inc/tools.php");                     //edit box for plugin
+		require_once( plugin_dir_path( __FILE__ )."inc/options.php");                   //admin options for plugin
+		//require_once( plugin_dir_path( __FILE__ ).'inc/class-add-custom-mce.php' );      //editor Button Funcitonality - Temp Removed in 4.0
 	}
 	if( version_compare(APIAP_PLUGIN_VER, get_option("apipp_product_upgraded_version", '0.0.0'), '>' )){
 		// less than 4.0.0, fix lightbox setting.
