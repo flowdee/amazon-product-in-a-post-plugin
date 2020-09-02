@@ -1,21 +1,24 @@
 <?php
 function __getAmz_regions() {
   return array(
-    "com.au" => array( "RegionName" => "Australia", "Host" => "webservices.amazon.com.au", "RegionCode" => "us-west-2" ),
-    "com.br" => array( "RegionName" => "Brazil", "Host" => "webservices.amazon.com.br", "RegionCode" => "us-east-1" ),
-    "ca" => array( "RegionName" => "Canada", "Host" => "webservices.amazon.ca", "RegionCode" => "us-east-1" ),
-    "fr" => array( "RegionName" => "France", "Host" => "webservices.amazon.fr", "RegionCode" => "eu-west-1" ),
-    "de" => array( "RegionName" => "Germany", "Host" => "webservices.amazon.de", "RegionCode" => "eu-west-1" ),
-    "in" => array( "RegionName" => "India", "Host" => "webservices.amazon.in", "RegionCode" => "eu-west-1" ),
-    "it" => array( "RegionName" => "Italy", "Host" => "webservices.amazon.it", "RegionCode" => "eu-west-1" ),
-    "jp" => array( "RegionName" => "Japan", "Host" => "webservices.amazon.co.jp", "RegionCode" => "us-west-2" ),
-    "mx" => array( "RegionName" => "Mexico", "Host" => "webservices.amazon.com.mx", "RegionCode" => "us-east-1" ),
-    "sg" => array( "RegionName" => "Singapore", "Host" => "webservices.amazon.sg", "RegionCode" => "us-west-2" ),
-    "es" => array( "RegionName" => "Spain", "Host" => "webservices.amazon.es", "RegionCode" => "eu-west-1" ),
-    "tr" => array( "RegionName" => "Turkey", "Host" => "webservices.amazon.com.tr", "RegionCode" => "eu-west-1" ),
-    "ae" => array( "RegionName" => "United Arab Emirates", "Host" => "webservices.amazon.ae", "RegionCode" => "eu-west-1" ),
-    "co.uk" => array( "RegionName" => "United Kingdom", "Host" => "webservices.amazon.co.uk", "RegionCode" => "eu-west-1" ),
-    "com" => array( "RegionName" => "United States", "Host" => "webservices.amazon.com", "RegionCode" => "us-east-1" )
+    "com.au" => array( "RegionName" => "Australia",            "Host" => "webservices.amazon.com.au", "RegionCode" => "us-west-2" ),
+    "com.br" => array( "RegionName" => "Brazil",               "Host" => "webservices.amazon.com.br", "RegionCode" => "us-east-1" ),
+    "ca"     => array( "RegionName" => "Canada",               "Host" => "webservices.amazon.ca",     "RegionCode" => "us-east-1" ),
+    "cn"     => array( "RegionName" => "China",                "Host" => "webservices.amazon.cn",     "RegionCode" => "us-west-2" ),
+    "fr"     => array( "RegionName" => "France",               "Host" => "webservices.amazon.fr",     "RegionCode" => "eu-west-1" ),
+    "de"     => array( "RegionName" => "Germany",              "Host" => "webservices.amazon.de",     "RegionCode" => "eu-west-1" ),
+    "in"     => array( "RegionName" => "India",                "Host" => "webservices.amazon.in",     "RegionCode" => "eu-west-1" ),
+    "it"     => array( "RegionName" => "Italy",                "Host" => "webservices.amazon.it",     "RegionCode" => "eu-west-1" ),
+    "jp"     => array( "RegionName" => "Japan",                "Host" => "webservices.amazon.co.jp",  "RegionCode" => "us-west-2" ),
+    "mx"     => array( "RegionName" => "Mexico",               "Host" => "webservices.amazon.com.mx", "RegionCode" => "us-east-1" ),
+    "nl"     => array( "RegionName" => "Netherlands",          "Host" => "webservices.amazon.nl",     "RegionCode" => "eu-west-1" ),
+    "sa"     => array( "RegionName" => "Saudi Arabia",         "Host" => "webservices.amazon.sa",     "RegionCode" => "eu-west-1" ),
+    "sg"     => array( "RegionName" => "Singapore",            "Host" => "webservices.amazon.sg",     "RegionCode" => "us-west-2" ),
+    "es"     => array( "RegionName" => "Spain",                "Host" => "webservices.amazon.es",     "RegionCode" => "eu-west-1" ),
+//    "tr"     => array( "RegionName" => "Turkey",               "Host" => "webservices.amazon.com.tr", "RegionCode" => "eu-west-1" ),
+    "ae"     => array( "RegionName" => "United Arab Emirates", "Host" => "webservices.amazon.ae",     "RegionCode" => "eu-west-1" ),
+    "co.uk"  => array( "RegionName" => "United Kingdom",       "Host" => "webservices.amazon.co.uk",  "RegionCode" => "eu-west-1" ),
+    "com"    => array( "RegionName" => "United States",        "Host" => "webservices.amazon.com",    "RegionCode" => "us-east-1" )
   );
 }
 function __getAmz_errors() {

@@ -1286,18 +1286,23 @@ function apipp_main_page() {
   $pageTxtArr[] = '				<h3>' . __( 'Step 1 - Getting Your Amazon Affiliate/Partner ID', 'amazon-product-in-a-post-plugin' ) . '</h3>';
   $pageTxtArr[] = '				<p>' . __( 'Sign up for your Amazon Affiliate/Partner account at one of the following URLs (choose the correct link based on your Amazon location):', 'amazon-product-in-a-post-plugin' );
   $pageTxtArr[] = '				<ul>';
-  $pageTxtArr[] = '					<li>' . __( 'Australia (com.au):', 'amazon-product-in-a-post-plugin' ) . ' <a href="https://affiliate-program.amazon.com.au/">https://affiliate-program.amazon.com.au/</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'Brazil (com.br):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://associados.amazon.com.br/gp/associates/apply/main.html">http://associados.amazon.com.br/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'Canada (ca):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://associates.amazon.ca/gp/associates/apply/main.html">http://associates.amazon.ca/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'China (cn):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://associates.amazon.ca/gp/associates/apply/main.html">http://associates.amazon.cn/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'France (fr):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://partenaires.amazon.fr/gp/associates/apply/main.html">http://partenaires.amazon.fr/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'Germany (de):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://partnernet.amazon.de/gp/associates/apply/main.html">http://partnernet.amazon.de/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'India (in):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://affiliate-program.amazon.in/gp/associates/apply/main.html">http://affiliate-program.amazon.in/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'Italy (it):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://programma-affiliazione.amazon.it/gp/associates/apply/main.html">http://programma-affiliazione.amazon.it/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'Japan (co.jp):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://affiliate.amazon.co.jp/gp/associates/apply/main.html">http://affiliate.amazon.co.jp/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'Spain (es):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://afiliados.amazon.es/gp/associates/apply/main.html">http://afiliados.amazon.es/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'United Kingdom (co.uk):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://affiliate-program.amazon.co.uk/gp/associates/apply/main.html">http://affiliate-program.amazon.co.uk/gp/associates/apply/main.html</a> </li>';
-  $pageTxtArr[] = '					<li>' . __( 'United States (com):', 'amazon-product-in-a-post-plugin' ) . ' <a href="http://affiliate-program.amazon.com/gp/associates/apply/main.html">http://affiliate-program.amazon.com/gp/associates/apply/main.html</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Australia (com.au):', 'amazon-product-in-a-post-plugin' )        . '<a href="https://affiliate-program.amazon.com.au/">https://affiliate-program.amazon.com.au/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Brazil (com.br):', 'amazon-product-in-a-post-plugin' )           . ' <a href="https://associados.amazon.com.br/">https://associados.amazon.com.br/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Canada (ca):', 'amazon-product-in-a-post-plugin' )               . ' <a href="https://associates.amazon.ca/">https://associates.amazon.ca/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'China (cn):', 'amazon-product-in-a-post-plugin' )                . ' <a href="https://associates.amazon.cn/">https://associates.amazon.cn/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'France (fr):', 'amazon-product-in-a-post-plugin' )               . ' <a href="https://partenaires.amazon.fr/">https://partenaires.amazon.fr/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Germany (de):', 'amazon-product-in-a-post-plugin' )              . ' <a href="https://partnernet.amazon.de/">https://partnernet.amazon.de/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'India (in):', 'amazon-product-in-a-post-plugin' )                . ' <a href="https://affiliate-program.amazon.in/">https://affiliate-program.amazon.in/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Italy (it):', 'amazon-product-in-a-post-plugin' )                . ' <a href="https://programma-affiliazione.amazon.it/">https://programma-affiliazione.amazon.it/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Japan (co.jp):', 'amazon-product-in-a-post-plugin' )             . ' <a href="https://affiliate.amazon.co.jp/">https://affiliate.amazon.co.jp/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Mexico (com.mx):', 'amazon-product-in-a-post-plugin' )           . ' <a href="https://afiliados.amazon.com.mx/">https://afiliados.amazon.com.mx/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Netherlands (nl):', 'amazon-product-in-a-post-plugin' )          . ' <a href="https://partnernet.amazon.nl/">https://partnernet.amazon.nl/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Saudi Arabia (sa):', 'amazon-product-in-a-post-plugin' )         . ' <a href="https://affiliate-program.amazon.sa/">https://affiliate-program.amazon.sa/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Singapore (sg):', 'amazon-product-in-a-post-plugin' )            . ' <a href="https://affiliate-program.amazon.sg/">https://affiliate-program.amazon.sg/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Spain (es):', 'amazon-product-in-a-post-plugin' )                . ' <a href="https://afiliados.amazon.es/">https://afiliados.amazon.es/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'United Arab Emirates (ae):', 'amazon-product-in-a-post-plugin' ) . ' <a href="https://affiliate-program.amazon.ae/">https://affiliate-program.amazon.ae/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'United Kingdom (co.uk):', 'amazon-product-in-a-post-plugin' )    . ' <a href="https://affiliate-program.amazon.co.uk/">https://affiliate-program.amazon.co.uk/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'United States (com):', 'amazon-product-in-a-post-plugin' )       . ' <a href="https://affiliate-program.amazon.com/">https://affiliate-program.amazon.com/</a> </li>';
   $pageTxtArr[] = '				</ul>';
   $pageTxtArr[] = '				<p>' . __( 'Amazon requires that you have a different affiliate ID for each country (aka, locale).', 'amazon-product-in-a-post-plugin' ) . '</p>';
   $pageTxtArr[] = '				<p>' . __( 'Since the Affiliate signup has not changed much over the years, and it is not too difficult, I will not go into it in any more detail. Follow the steps until you are issued your affiliate partner ID. Paste that into the plug-in options page.', 'amazon-product-in-a-post-plugin' ) . '</p>';
@@ -1624,13 +1629,23 @@ function apipp_options_faq_page() {
                 <p>So, check that your products are available in your locale and check to make sure you have registered for the Amazon Advertising API, not just Amazon AWS.</p>
                 <p>To register for the Advertising API, go to:</p>
                 <ul>
-                    <li>United States (com): <a href="https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html</a></li>
-                    <li>United Kingdon (co.uk): <a href="https://affiliate-program.amazon.co.uk/gp/flex/advertising/api/sign-in.html" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.co.uk/gp/flex/advertising/api/sign-in.html</a></li>
-                    <li>Canada (ca): <a href="https://associates.amazon.ca/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://associates.amazon.ca/gp/advertising/api/detail/main.html</a></li>
-                    <li>Germany (de): <a href="https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html</a></li>
-                    <li>France (fr): <a href="https://partenaires.amazon.fr/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://partenaires.amazon.fr/gp/advertising/api/detail/main.html</a></li>
-                    <li>Japan (jp): <a href="https://affiliate.amazon.co.jp/gp/advertising/api/detail/agreement.html" target="_blank" rel="noopener noreferrer">https://affiliate.amazon.co.jp/gp/advertising/api/detail/agreement.html</a></li>
-                    <li>Spain (es): <a href="https://afiliados.amazon.es/gp/advertising/api/detail/main.html" target="_blank" rel="noopener noreferrer">https://afiliados.amazon.es/gp/advertising/api/detail/main.html</a></li>
+                    <li>United States (com): <a href="https://affiliate-program.amazon.com/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.com/</a></li>
+                    <li>United Kingdon (co.uk): <a href="https://affiliate-program.amazon.co.uk/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.co.uk/</a></li>
+                    <li>Germany (de): <a href="https://partnernet.amazon.de/" target="_blank" rel="noopener noreferrer">https://partnernet.amazon.de/</a></li>
+                    <li>France (fr): <a href="https://partenaires.amazon.fr/" target="_blank" rel="noopener noreferrer">https://partenaires.amazon.fr/</a></li>
+                    <li>Japan (jp): <a href="https://affiliate.amazon.co.jp/" target="_blank" rel="noopener noreferrer">https://affiliate.amazon.co.jp/</a></li>
+                    <li>Canada (ca): <a href="https://associates.amazon.ca/" target="_blank" rel="noopener noreferrer">https://associates.amazon.ca/</a></li>
+                    <li>China (cn): <a href="https://associates.amazon.cn/" target="_blank" rel="noopener noreferrer">https://associates.amazon.cn/</a></li>
+                    <li>Italy (it): <a href="https://programma-affiliazione.amazon.it/" target="_blank" rel="noopener noreferrer">https://programma-affiliazione.amazon.it/</a></li>
+                    <li>Spain (es): <a href="https://afiliados.amazon.es/" target="_blank" rel="noopener noreferrer">https://afiliados.amazon.es/</a></li>
+                    <li>India (in): <a href="https://affiliate-program.amazon.in/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.in/</a></li>
+                    <li>Brazil (com.br): <a href="https://associados.amazon.com.br/" target="_blank" rel="noopener noreferrer">https://associados.amazon.com.br/</a></li>
+                    <li>Mexico (com.mx): <a href="https://afiliados.amazon.com.mx/" target="_blank" rel="noopener noreferrer">https://afiliados.amazon.com.mx/</a></li>
+                    <li>Australia (com.au): <a href="https://affiliate-program.amazon.com.au/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.com.au/</a></li>
+                    <li>United Arab Emirates (ae): <a href="https://affiliate-program.amazon.ae/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.ae/</a></li>
+                    <li>Singapore (sg): <a href="https://affiliate-program.amazon.sg/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.sg/</a></li>
+                    <li>Netherlands (nl): <a href="https://partnernet.amazon.nl/" target="_blank" rel="noopener noreferrer">https://partnernet.amazon.nl/</a></li>
+                    <li>Saudi Arabia (sa): <a href="https://affiliate-program.amazon.sa/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.sa/</a></li>
                 </ul>'
 	  ]
   );
