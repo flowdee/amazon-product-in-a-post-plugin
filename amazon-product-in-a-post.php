@@ -8,7 +8,7 @@ Author URI: https://kryptonitewp.com
 Author Email: support@kryptonitewp.com
 Text Domain: amazon-product-in-a-post-plugin
 Domain Path: /lang/
-Version: 5.1.1
+Version: 5.2.0
     Copyright (C) 2009-2020 KryptoniteWP
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

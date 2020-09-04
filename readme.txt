@@ -1,12 +1,12 @@
 ﻿=== Amazon Product in a Post Plugin ===
 Plugin Name: Amazon Product in a Post
 Contributors: flowdee
-Tags: Amazon, Affiliate, Product, Products, Post, Page, Custom Post Type, Quick Post, Amazon Associate, Monetize, ASIN, Amazon.com, Blocks, Gutenberg Blocks
+Tags: Amazon, Amazon Associate, Amazon product, Affiliate
 Donate link: https://donate.flowdee.de/
 Requires at least: 5.0
-Tested up to: 5.4.1
+Tested up to: 5.5.1
 Requires PHP: 5.6.0
-Stable tag: 5.1.1
+Stable tag: 5.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,10 +112,15 @@ No additional adjustments are needed unless you want to configure your own CSS s
 
 == Changelog ==
 
+= 5.2.0 (4th September 2020) =
+* New: Added support for the following Amazon stores: Japan, Mexico, Netherlands, Saudi Arabia, Singapore & United Arab Emirates
+* Fix: Javascript error "Uncaught TypeError: $(...).live is not a function"
+* WordPress v5.5.1 compatibility
+
 = 5.1.1 (2nd June 2020) =
-* **Tweak:** Optimized database table character set / collation for plugin installation
-* **Fix:** Button image didn't load properly in some cases
-* **Fix:** PHP notice "Undefined variable: $aws_plugin_version"
+* Tweak: Optimized database table character set / collation for plugin installation
+* Fix: Button image didn't load properly in some cases
+* Fix: PHP notice "Undefined variable: $aws_plugin_version"
 * Updated plugin author information
 
 = 5.1.0 (26th May 2020) =
@@ -475,6 +480,9 @@ Example `[amazon-product-search keywords='disney' search_index='All' item_page='
 * Plugin Release (9/12/2009)
 
 == Upgrade Notice ==
+
+= 5.1.1 (2nd June 2020) =
+* You can now advertise the following Amazon stores: Japan, Mexico, Netherlands, Saudi Arabia, Singapore & United Arab Emirates
 
 = 5.1.1 (2nd June 2020) =
 * Fixed 2 bugs, optimized database table creation and updated plugin author information.
