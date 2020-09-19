@@ -215,7 +215,7 @@
 	
 	function apipp_options_add_admin_page($themename,$shortname,$options) {
 	$up_opt='';
-	    if ( basename(__FILE__) == 'amazon-product-in-a-post-options.php' ) {
+	    if ( basename(__FILE__) == 'options.php' ) {
 	    	if(isset($_REQUEST['action'])){
 				$req_action = esc_attr( $_REQUEST['action'] );
 			}else{
