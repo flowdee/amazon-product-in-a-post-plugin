@@ -1,12 +1,12 @@
 ﻿=== Amazon Product in a Post Plugin ===
 Plugin Name: Amazon Product in a Post
 Contributors: flowdee
-Tags: Amazon, Amazon Associate, Amazon product, Affiliate
+Tags: Amazon, Amazon Associate, Amazon product, Amazon Affiliate
 Donate link: https://donate.flowdee.de/
 Requires at least: 5.0
 Tested up to: 5.5.1
 Requires PHP: 5.6.0
-Stable tag: 5.2.0
+Stable tag: 5.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -111,6 +111,9 @@ No additional adjustments are needed unless you want to configure your own CSS s
 13. Amazon Cache Page. Allows you to see and delete cached product data.
 
 == Changelog ==
+
+= 5.2.1 (20th September 2020) =
+* Fix: Plugin settings didn't update properly
 
 = 5.2.0 (4th September 2020) =
 * New: Added support for the following Amazon stores: Japan, Mexico, Netherlands, Saudi Arabia, Singapore & United Arab Emirates
@@ -480,6 +483,9 @@ Example `[amazon-product-search keywords='disney' search_index='All' item_page='
 * Plugin Release (9/12/2009)
 
 == Upgrade Notice ==
+
+= 5.2.1 (20th September 2020) =
+* Plugin settings didn't update properly
 
 = 5.1.1 (2nd June 2020) =
 * You can now advertise the following Amazon stores: Japan, Mexico, Netherlands, Saudi Arabia, Singapore & United Arab Emirates
