@@ -15,6 +15,7 @@ function __getAmz_regions() {
     "sa"     => array( "RegionName" => "Saudi Arabia",         "Host" => "webservices.amazon.sa",     "RegionCode" => "eu-west-1" ),
     "sg"     => array( "RegionName" => "Singapore",            "Host" => "webservices.amazon.sg",     "RegionCode" => "us-west-2" ),
     "es"     => array( "RegionName" => "Spain",                "Host" => "webservices.amazon.es",     "RegionCode" => "eu-west-1" ),
+    "se"     => array( "RegionName" => "Sweden",               "Host" => "webservices.amazon.se",     "RegionCode" => "eu-north-1" ),
 //    "tr"     => array( "RegionName" => "Turkey",               "Host" => "webservices.amazon.com.tr", "RegionCode" => "eu-west-1" ),
     "ae"     => array( "RegionName" => "United Arab Emirates", "Host" => "webservices.amazon.ae",     "RegionCode" => "eu-west-1" ),
     "co.uk"  => array( "RegionName" => "United Kingdom",       "Host" => "webservices.amazon.co.uk",  "RegionCode" => "eu-west-1" ),
