@@ -1300,6 +1300,7 @@ function apipp_main_page() {
   $pageTxtArr[] = '					<li>' . __( 'Saudi Arabia (sa):', 'amazon-product-in-a-post-plugin' )         . ' <a href="https://affiliate-program.amazon.sa/">https://affiliate-program.amazon.sa/</a> </li>';
   $pageTxtArr[] = '					<li>' . __( 'Singapore (sg):', 'amazon-product-in-a-post-plugin' )            . ' <a href="https://affiliate-program.amazon.sg/">https://affiliate-program.amazon.sg/</a> </li>';
   $pageTxtArr[] = '					<li>' . __( 'Spain (es):', 'amazon-product-in-a-post-plugin' )                . ' <a href="https://afiliados.amazon.es/">https://afiliados.amazon.es/</a> </li>';
+  $pageTxtArr[] = '					<li>' . __( 'Sweden (se):', 'amazon-product-in-a-post-plugin' )               . ' <a href="https://affiliate-program.amazon.se/">https://affiliate-program.amazon.se/</a> </li>';
   $pageTxtArr[] = '					<li>' . __( 'United Arab Emirates (ae):', 'amazon-product-in-a-post-plugin' ) . ' <a href="https://affiliate-program.amazon.ae/">https://affiliate-program.amazon.ae/</a> </li>';
   $pageTxtArr[] = '					<li>' . __( 'United Kingdom (co.uk):', 'amazon-product-in-a-post-plugin' )    . ' <a href="https://affiliate-program.amazon.co.uk/">https://affiliate-program.amazon.co.uk/</a> </li>';
   $pageTxtArr[] = '					<li>' . __( 'United States (com):', 'amazon-product-in-a-post-plugin' )       . ' <a href="https://affiliate-program.amazon.com/">https://affiliate-program.amazon.com/</a> </li>';
@@ -1646,6 +1647,7 @@ function apipp_options_faq_page() {
                     <li>Singapore (sg): <a href="https://affiliate-program.amazon.sg/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.sg/</a></li>
                     <li>Netherlands (nl): <a href="https://partnernet.amazon.nl/" target="_blank" rel="noopener noreferrer">https://partnernet.amazon.nl/</a></li>
                     <li>Saudi Arabia (sa): <a href="https://affiliate-program.amazon.sa/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.sa/</a></li>
+                    <li>Sweden (se): <a href="https://affiliate-program.amazon.se/" target="_blank" rel="noopener noreferrer">https://affiliate-program.amazon.se/</a></li>
                 </ul>'
 	  ]
   );

@@ -1,7 +1,7 @@
 <?php
 //VARIABLES
 	global $fullname_apipp, $shortname_apipp, $options_apipp;
-	add_action('init','appip_start_options');	
+	add_action('init','appip_start_options');
 	function appip_start_options(){
 		global $wpdb,$fullname_apipp, $shortname_apipp, $options_apipp;
 		$appiptable = $wpdb->prefix . 'amazoncache';
@@ -64,6 +64,7 @@
 					<a target='_blank' href='https://affiliate-program.amazon.sa/'>"     .__('Saudi Arabia', 'amazon-product-in-a-post-plugin')        ." (sa)</a>, 
 					<a target='_blank' href='https://affiliate-program.amazon.sg/'>"     .__('Singapore', 'amazon-product-in-a-post-plugin')           ." (sg)</a>, 
 					<a target='_blank' href='https://afiliados.amazon.es/'>"             .__('Spain', 'amazon-product-in-a-post-plugin')               ." (es)</a>, 
+					<a target='_blank' href='https://affiliate-program.amazon.se/'>"     .__('Sweden', 'amazon-product-in-a-post-plugin')              ." (se)</a>, 
 					<a target='_blank' href='https://affiliate-program.amazon.ae/'>"     .__('United Arab Emirates', 'amazon-product-in-a-post-plugin')." (ae)</a>, 
 					<a target='_blank' href='https://affiliate-program.amazon.co.uk/'>"  .__('United Kingdom', 'amazon-product-in-a-post-plugin')      ." (co.uk)</a>, 
 					<a target='_blank' href='https://affiliate-program.amazon.com/'>"    .__('United States', 'amazon-product-in-a-post-plugin')       ." (com)</a>
@@ -212,7 +213,7 @@
 		global $fullname_apipp, $shortname_apipp, $options_apipp;
 		apipp_options_admin_page($fullname_apipp, 'apipp', $options_apipp);
 	}
-	
+
 	function apipp_options_add_admin_page($themename,$shortname,$options) {
 	$up_opt='';
 	    if ( basename(__FILE__) == 'options.php' ) {
@@ -232,35 +233,35 @@
 						if(isset($value['type']) && $value['type'] == 'multicheck'){
 							if(isset($value['options']) && !empty($value['options'])){
 							foreach($value['options'] as $mc_key => $mc_value){
-								$up_opt = $value['id'].'_'.$mc_key;						
-								if( isset( $_REQUEST[ $up_opt ] ) ) { 
-									update_option( $up_opt, ($_REQUEST[ $up_opt ])  ); 
+								$up_opt = $value['id'].'_'.$mc_key;
+								if( isset( $_REQUEST[ $up_opt ] ) ) {
+									update_option( $up_opt, ($_REQUEST[ $up_opt ])  );
 									$update_optionapp = ($_REQUEST[ $up_opt ]);
-								} else { 
+								} else {
 									delete_option( $up_opt );
-									$update_optionapp=''; 
-								} 
+									$update_optionapp='';
+								}
 							}
 							}
 						}elseif(isset($value['type']) && $value['type'] == 'select'){
 							foreach( $value['options'] as $mc_key => $mc_value ){
-								$up_opt = $value['id'];	
-								if( isset( $_REQUEST[ $up_opt ] ) && ($_REQUEST[ $up_opt ] == $mc_value['value']) ) { 
-									update_option( $value['id'], $mc_value['value']); 
-								} 
+								$up_opt = $value['id'];
+								if( isset( $_REQUEST[ $up_opt ] ) && ($_REQUEST[ $up_opt ] == $mc_value['value']) ) {
+									update_option( $value['id'], $mc_value['value']);
+								}
 							}
 						}else{
-	                    	if( isset($value['id']) && isset( $_REQUEST[ $value['id'] ] ) ) { 
+	                    	if( isset($value['id']) && isset( $_REQUEST[ $value['id'] ] ) ) {
 								if( $value['id'] == 'apipp_amazon_publickey' || $value['id'] == 'apipp_amazon_secretkey' ){
-									update_option( $value['id'], trim(($_REQUEST[ $value['id'] ]))  ); 
+									update_option( $value['id'], trim(($_REQUEST[ $value['id'] ]))  );
 								}else{
-									update_option( $value['id'], esc_attr(stripslashes($_REQUEST[ $value['id'] ]))  ); 
+									update_option( $value['id'], esc_attr(stripslashes($_REQUEST[ $value['id'] ]))  );
 								}
 	                    	} else {
 								if(isset($value['id'])){
 	                    			delete_option( $value['id'] );
 								}
-	                    	} 
+	                    	}
 						}
 					}
 					if(
@@ -276,12 +277,12 @@
 					$curtab = isset($_REQUEST['appip_current_tab']) && $_REQUEST['appip_current_tab'] !== '' ? esc_attr($_REQUEST['appip_current_tab']) : 'general';
 	                wp_redirect("admin.php?page=".$shortname."_plugin_admin&saved=true".($curtab != '' ? '&tab='.$curtab : '' ),302);
 	                die;
-	
+
 	        } else if( 'reset' == $req_action && $req_option == $shortname ) {
 				check_ajax_referer( 'appip_options_nonce_ji9osdjfkjl', 'appip_nonce', true );
 	            foreach ($options as $value) {
 					if($value['type'] != 'multicheck'){
-	                	delete_option( $value['id'] ); 
+	                	delete_option( $value['id'] );
 					}else{
 						foreach($value['options'] as $mc_key => $mc_value){
 							$del_opt = $value['id'].'_'.$mc_key;
@@ -291,11 +292,11 @@
 				}
 	            wp_redirect("admin.php?page=".$shortname."_plugin_admin&reset=true",302);
 	            die;
-	
+
 	        }
 	    }
 	}
-	
+
 	function apipp_options_admin_page($themename, $shortname, $options) {
 		//if ( get_option('apipp_product_styles') == ''){ update_option('apipp_product_styles',$thedefaultapippstyle); }
 		if (isset($_REQUEST['dismissmsg']) && $_REQUEST['dismissmsg'] == '1'){update_option('appip_dismiss_msg',1);echo '<div id="message" class="updated fade"><p><strong>'.$themename.' message dismissed.</strong></p></div>';}
@@ -337,7 +338,7 @@
 		}
     </style>
 	<h2><?php echo $themename; ?> Settings/Options</h2>
-    
+
 <?php
 	if(isset($_REQUEST['notice_sent']) && isset($_REQUEST['sent'])){
 		$sent 	= esc_attr(urldecode($_REQUEST['sent']));
@@ -354,12 +355,12 @@
 		/*
 		<div class="notice notice-success is-dismissible"><p>This is a success message.</p></div>
 		<div class="notice notice-info is-dismissible"><p>This is some information.</p></div>
-		*/	
+		*/
 	}
 	$current_tab = isset( $_GET['tab'] ) ? esc_attr($_GET['tab']) : 'general';
 	echo '<h2 class="nav-tab-wrapper">';
-	echo '<a id="general" class="appiptabs nav-tab ' . ($current_tab == 'general' ? 'nav-tab-active' : '') . '" href="?page=apipp_plugin_admin&tab=general">API Options</a>';	
-	echo '<a id="advanced" class="appiptabs nav-tab ' . ($current_tab == 'advanced' ? 'nav-tab-active' : '') . '" href="?page=apipp_plugin_admin&tab=advanced">Advanced Options</a>';	
+	echo '<a id="general" class="appiptabs nav-tab ' . ($current_tab == 'general' ? 'nav-tab-active' : '') . '" href="?page=apipp_plugin_admin&tab=general">API Options</a>';
+	echo '<a id="advanced" class="appiptabs nav-tab ' . ($current_tab == 'advanced' ? 'nav-tab-active' : '') . '" href="?page=apipp_plugin_admin&tab=advanced">Advanced Options</a>';
 	echo '<a id="styles" class="appiptabs nav-tab ' . ($current_tab == 'styles' ? 'nav-tab-active' : '') . '" href="?page=apipp_plugin_admin&tab=styles">Styles</a>';
 	$AddlTabs =  apply_filters('amazon_product_options_additional_tabs', array());
 	if(is_array($AddlTabs) && !empty($AddlTabs)){
@@ -384,7 +385,7 @@
     <input type="hidden" name="form-changed-awsplugin" id="form-changed-awsplugin"  value="false">
 	<?php wp_nonce_field( 'appip_options_nonce_ji9osdjfkjl', 'appip_nonce' ); ?>
 	<div class="optiontable">
-	<?php foreach ($options as $key => $value) { 
+	<?php foreach ($options as $key => $value) {
 		$autoComplete = isset($value['autocomplete']) && $value['autocomplete'] == "off" ? ' autocomplete="off"' : '';
 		$value['std'] = isset($value['std']) ? $value['std'] : '';
 		switch ( $value['type'] ) {
@@ -422,7 +423,7 @@
 			<?php
 			apipp_option_wrapper_footer($value);
 			break;
-			
+
 			case 'select':
 			apipp_option_wrapper_header($value);
 			$selectOption = get_option( $value['id'] , '' );
@@ -436,7 +437,7 @@
 			<?php
 			apipp_option_wrapper_footer($value);
 			break;
-			
+
 			case 'cat_select':
 				apipp_option_wrapper_header($value);
 				$categories = get_categories('hide_empty=0');
@@ -450,12 +451,12 @@
 				<?php
 				apipp_option_wrapper_footer($value);
 				break;
-			
+
 			case 'textarea':
 				//$ta_options = $value['options'];
 				apipp_option_wrapper_header($value);
 				?>
-						<textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" class="style-text-sm"><?php 
+						<textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" class="style-text-sm"><?php
 						if( get_option($value['id']) != "") {
 								echo stripslashes(get_option($value['id']));
 							}else{
@@ -464,14 +465,14 @@
 				<?php
 					apipp_option_wrapper_footer($value);
 				break;
-			
+
 			case 'textareabig':
 				//$ta_options = $value['options'];
 				apipp_option_wrapper_header($value);
 
 				?>
 				<div class="<?php echo $value['id']; ?>-wrapper">
-					<textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" class="style-text"><?php 
+					<textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" class="style-text"><?php
 						if( get_option($value['id']) != "") {
 								echo stripslashes(get_option($value['id']));
 							}else{
@@ -481,7 +482,7 @@
 				<?php
 				apipp_option_wrapper_footer($value);
 				break;
-	
+
 			case "radio":
 				apipp_option_wrapper_header($value);
 		 		foreach ($value['options'] as $key=>$option) {
@@ -500,9 +501,9 @@
 							}
 						}?>
 			            <input type="radio" name="<?php echo $value['id']; ?>" value="<?php echo $key; ?>" <?php echo $checked; ?>><?php echo $option; ?><br />
-				<?php 
+				<?php
 				}
-				 
+
 				apipp_option_wrapper_footer($value);
 				break;
 			case "checkbox-disabled":
@@ -518,7 +519,7 @@
 				<?php
 				apipp_option_wrapper_footer($value);
 				break;
-			
+
 			case "checkbox":
 				apipp_option_wrapper_header($value);
 								if( (bool) get_option($value['id'], false) ){
@@ -532,7 +533,7 @@
 				<?php
 				apipp_option_wrapper_footer($value);
 				break;
-	
+
 			case "multicheck":
 				apipp_option_wrapper_header($value);
 		 		foreach ($value['options'] as $key=>$option) {
@@ -552,12 +553,12 @@
 							}
 						}?>
 			            <input type="checkbox" name="<?php echo $pn_key; ?>" id="<?php echo $pn_key; ?>" value="true" <?php echo $checked; ?>><label for="<?php echo $pn_key; ?>"><?php echo $option; ?></label><br />
-				<?php 
+				<?php
 				}
-				 
+
 				apipp_option_wrapper_footer($value);
 				break;
-			
+
 			case "button":
 				apipp_option_wrapper_header($value);
 				$wrappcl 	= isset($value['wrapper_class']) &&  $value['wrapper_class'] != '' ? 'class="'.$value['wrapper_class'].'"' : '';
@@ -567,18 +568,18 @@
 				break;
 			case "heading":
 				?>
-				<div class="appip-options-heading"> 
+				<div class="appip-options-heading">
 				    <div style="text-align: left;"><h2><?php echo $value['name']; ?></h2></div>
 				</div>
 				<?php
 				break;
-			
+
 			default:
 				break;
 		}
 	}
 	?>
-	
+
 	</div>
 	<p class="submit"><input name="save" type="submit" value="Save changes" class="button-primary" /><input type="hidden" name="action" value="save"></p>
 	</form>
@@ -587,7 +588,7 @@
 	}
 	function apipp_option_wrapper_header($values){
 		?>
-		<div class="align-top table-row"> 
+		<div class="align-top table-row">
 		    <div scope="row" class="option-th"><?php echo $values['name']; ?></div>
 		    <div class="option-val">
 		<?php
@@ -595,12 +596,12 @@
 	function apipp_option_wrapper_footer($values, $id = ''){
 		?>
 		    	<div class="align-top"><?php echo $values['desc']; ?></div>
-                <?php 
+                <?php
 				if($id == 'apipp_amazon_debugkey' ){
 					echo "<br /><br />".Amazon_Product_Debug_Info::get_email_input();
 					Amazon_Product_Debug_Info::generate_server_data();
 				} ?>
 			</div>
 		</div>
-		<?php 
+		<?php
 	}
