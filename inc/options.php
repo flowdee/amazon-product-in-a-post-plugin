@@ -20,7 +20,7 @@
 			array(	"name" => __('Amazon API Settings','amazon-product-in-a-post-plugin'),
 					"type" => "heading"),
 			array(	"name" => __('Your Amazon Locale/Region','amazon-product-in-a-post-plugin'),
-					"desc" => __('The Locale to use for Amazon API Calls (ae, ca, cn, com, com.au, com.br, com.mx, co.jp, co.uk, de, fr, es, in, it, nl, sa, sg). Default is "com" for US.','amazon-product-in-a-post-plugin')."<br /><br />",
+					"desc" => __('The Locale to use for Amazon API Calls (ae, ca, cn, com, com.au, com.br, com.mx, co.jp, co.uk, de, fr, es, in, it, nl, sa, se, sg). Default is "com" for US.','amazon-product-in-a-post-plugin')."<br /><br />",
 					"id" => "apipp_amazon_locale",
 					"type" => "select",
 					"options" => array(
@@ -39,6 +39,7 @@
 						"15" => array("value" => "sa",     "text" => __('Saudi Arabia','amazon-product-in-a-post-plugin')),
 						"14" => array("value" => "sg",     "text" => __('Singapore','amazon-product-in-a-post-plugin')),
 						"10" => array("value" => "es",     "text" => __('Spain','amazon-product-in-a-post-plugin')),
+						"17" => array("value" => "se",     "text" => __('Sweden','amazon-product-in-a-post-plugin')),
 						"16" => array("value" => "ae",     "text" => __('United Arab Emirates','amazon-product-in-a-post-plugin')),
 						"11" => array("value" => "co.uk",  "text" => __('United Kingdom','amazon-product-in-a-post-plugin')),
 
