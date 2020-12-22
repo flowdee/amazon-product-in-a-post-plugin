@@ -9,7 +9,7 @@ If you need to add a new Gutenberg Block options, you need to add it to the foll
 ** SECTION 6: In php-block-{shortcode}.js file, add to inspector panel elements.
 ** Also be sure to localize any Text in js file using __() funcitons.
 **
-** Blocks and shorcodes use the same function to render, so anything you add to a block 
+** Blocks and shorcodes use the same function to render, so anything you add to a block
 ** is available in the shortcode parameters by default, so remember to update shortcode
 ** documentation pages with new parameters so those using shortcodes will know how to use them.
 */
@@ -31,7 +31,7 @@ class Amazon_Product_Shortcode_Products extends Amazon_Product_Shortcode {
 		$atts[ 'used_price' ] = isset( $atts[ 'used_price' ] ) && ($atts[ 'used_price' ] == 'true' || $atts[ 'used_price' ] == '1') ? 1 : 0;
 		$atts[ 'gallery' ] = isset( $atts[ 'gallery' ] ) && ($atts[ 'gallery' ] == 'true' || $atts[ 'gallery' ] == '1' ) ? 1 : 0;
 		$atts[ 'hide_title' ] = isset( $atts[ 'hide_title' ] ) && ($atts[ 'hide_title' ] == 'true' || $atts[ 'hide_title' ] == '1' ) ? 1 : 0;
-		$atts[ 'hide_image' ] = isset( $atts[ 'hide_image' ] ) && ($atts[ 'hide_image' ] == 'true'|| $atts[ 'hide_image' ] == '1'  ) ? 1 : 0;
+		$atts[ 'hide_image' ] = isset( $atts[ 'hide_image' ] ) && ($atts[ 'hide_image' ] == 'true' || $atts[ 'hide_image' ] == '1'  ) ? 1 : 0;
 		$atts[ 'hide_lg_img_text' ] = isset( $atts[ 'hide_lg_img_text' ] ) && ($atts[ 'hide_lg_img_text' ] == 'true' || $atts[ 'hide_lg_img_text' ] == '1' ) ? 1 : 0;
 		$atts[ 'hide_release_date' ] = isset( $atts[ 'hide_release_date' ] ) && ($atts[ 'hide_release_date' ] == 'true' || $atts[ 'hide_release_date' ] == '1' ) ? 1 : 0;
 		$atts[ 'title_charlen' ] = isset( $atts[ 'title_charlen' ] ) && ((int) $atts[ 'title_charlen' ] >= 0 && (int) $atts[ 'title_charlen' ] <= 150  ) ? (int) $atts[ 'title_charlen' ] : 0;
@@ -39,7 +39,7 @@ class Amazon_Product_Shortcode_Products extends Amazon_Product_Shortcode {
 		$atts[ 'is_block' ] = isset( $atts[ 'is_block' ] ) && ($atts[ 'is_block' ] == 'true' || $atts[ 'is_block' ] == '1' ) ? 1 : 0;
 		$atts[ 'image_count' ] = isset( $atts[ 'image_count' ] ) && (( int )$atts[ 'image_count' ] <= 10 || ( int )$atts[ 'image_count' ] >= -1 ) ? ( int )$atts[ 'image_count' ] : -1;
 		$atts[ 'target' ] = isset( $atts[ 'target' ] ) && (esc_attr( $atts[ 'target' ] ) != '' ) ? esc_attr( $atts[ 'target' ] ) : '_blank';
-		
+
 		/* SECTION 2 - ATTS Defaults */
 		$defaults = array(
 			'asin' => '',
@@ -52,11 +52,11 @@ class Amazon_Product_Shortcode_Products extends Amazon_Product_Shortcode {
 			'desc' => 0, //set to 1 to show or 0 to hide description if avail
 			'listprice' => 1, //set to 0 to hide list price
 			'used_price' => 1, //set to 0 to hide used price
-			'new_price' => 1, //Show New Price 
+			'new_price' => 1, //Show New Price
 			'gallery' => 0, //set to 1 to show extra photos
 			'features' => 0, //set to 1 to show or 0 to hide features if avail
-			'hide_title' => 0, //set to 1 to hide or 0 to show (default) 
-			'hide_image' => 0, //set to 1 to hide or 0 to show (default) 
+			'hide_title' => 0, //set to 1 to hide or 0 to show (default)
+			'hide_image' => 0, //set to 1 to hide or 0 to show (default)
 			'hide_lg_img_text' => 0, //Hides the "See larger Image" Link
 			'hide_release_date' => 0, //Hide release date for Game or Pre-orders
 			'single_only' => 0, //show on Single Only
@@ -65,7 +65,7 @@ class Amazon_Product_Shortcode_Products extends Amazon_Product_Shortcode {
 			'use_carturl' => 'false', //set to 1 use Cart URL
 			'button' => '', //New HTML Button attribute. Any valid registered HTML Button
 			'list_price' => null, //added only as a secondary use of $listprice
-			'show_list' => null, //added only as a secondary use of $listprice 
+			'show_list' => null, //added only as a secondary use of $listprice
 			'show_used' => null, //added only as a secondary use of $used_price
 			'usedprice' => null, //added only as a secondary use of $used_price
 			'show_new' => null, //Show New Price (secondary use for new_price)
@@ -86,14 +86,14 @@ class Amazon_Product_Shortcode_Products extends Amazon_Product_Shortcode {
 		$atts[ 'used_price' ] = is_null( $atts[ 'show_used' ] ) ? $atts[ 'used_price' ] : ( int )$atts[ 'show_used' ];
 		$atts[ 'new_price' ] = is_null( $atts[ 'show_new' ] ) ? $atts[ 'new_price' ] : ( int )$atts[ 'show_new' ];
 		$use_carturl =  isset( $atts[ 'use_carturl' ]) && $atts[ 'use_carturl' ] == '1' ? '1' : '0';
-		$button_carturl = isset( $atts['button_use_carturl']) && $atts[ 'button_use_carturl' ] == '1'  ? '1'  : $use_carturl ; 
+		$button_carturl = isset( $atts['button_use_carturl']) && $atts[ 'button_use_carturl' ] == '1'  ? '1'  : $use_carturl ;
 		// fix spaces, returns, double spaces and new lines in ASINs
 		if(isset($atts[ 'asin' ]) && is_array($atts[ 'asin' ])){
 			$ak = implode(",",$atts[ 'asin' ]);
 			$ak = str_replace(array("<br/>","<br>","\r","\n","\r\n","\t",", ","  "," ",",,"),array('','','','','','',',','','',','),$ak);
 			$atts[ 'asin' ] = explode(",",$ak);
 		}
-		
+
 		/* SECTION 3 - Shortcode Attrs Array (for render) */
 		$amazon_array = array(
 			'locale' => $atts[ 'locale' ],
@@ -122,7 +122,7 @@ class Amazon_Product_Shortcode_Products extends Amazon_Product_Shortcode {
 			'className' => $atts[ 'className' ], // Gutenberg Additional className attribute.
 			'single_only' => $atts[ 'single_only' ],
 			'is_block' => $atts[ 'is_block' ],
-			'title_charlen' => $atts[ 'title_charlen' ]	,							
+			'title_charlen' => $atts[ 'title_charlen' ]	,
 		);
 		$amazon_array = apply_filters( 'appip_shortcode_atts_array', $amazon_array );
 		return getSingleAmazonProduct( $atts[ 'asin' ], $content, 0, $amazon_array, $atts[ 'desc' ] );
@@ -145,7 +145,7 @@ function appip_products_php_block_init() {
 		}, 10, 1 );
 		$pluginStyles = array('amazon-theme-styles');
 		$pluginScripts = array('amazon-product');
-		
+
 		$wheretoenqueue = 'amazon-theme-styles';
 		if ( file_exists( get_stylesheet_directory() . '/appip-styles.css' ) ) {
 			wp_enqueue_style( 'amazon-theme-styles', get_stylesheet_directory_uri() . '/appip-styles.css', array(), null );
@@ -157,7 +157,7 @@ function appip_products_php_block_init() {
 		}
 		wp_enqueue_style( 'amazon-frontend-styles', plugins_url( 'css/amazon-frontend.css', dirname( __FILE__ ) ), array($wheretoenqueue), filemtime( dirname( plugin_dir_path( __FILE__ ) ) . '/css/amazon-frontend.css' ) );
 		$pluginStyles[] = 'amazon-frontend-styles';
-		
+
 		$usemine = get_option( 'apipp_product_styles_mine', false );
 		if ( $usemine && !$amazon_styles_enqueued ) {
 			$data = wp_kses( get_option( 'apipp_product_styles', '' ), array( "\'", '\"' ) );
@@ -165,7 +165,7 @@ function appip_products_php_block_init() {
 				wp_add_inline_style( 'amazon-frontend-styles', $data );
 			$amazon_styles_enqueued = true;
 		}
-		
+
 		wp_register_script(
 			'amazon-product',
 			plugins_url( '/blocks/php-block-product.js', __FILE__ ),
@@ -193,6 +193,10 @@ function appip_products_php_block_init() {
 					'type' => 'bool',
 					'default' => false
 				),
+                'hide_lg_img_text' => array(
+                    'type' => 'bool',
+                    'default' => false
+                ),
 				'desc' => array(
 					'type' => 'bool',
 				),
@@ -221,9 +225,6 @@ function appip_products_php_block_init() {
 				'features' => array(
 					'type' => 'bool',
 				),
-				'hide_lg_img_text' => array(
-					'type' => 'bool',
-				),
 				'hide_release_date' => array(
 					'type' => 'bool',
 				),
@@ -245,7 +246,7 @@ function appip_products_php_block_init() {
 				'title_charlen' => array(
 					'type' => 'number',
 					'default' => 0,
-				),				
+				),
 				// FUTURE UPDATES - no time to add these now with the rushed update to 5.0
 				//'partner_id'=> array('type' => 'string',),
 				//'private_key'=> array('type' => 'string',),
@@ -278,10 +279,10 @@ function appip_products_templates( $appip_templates, $result, $array_for_templat
 		$className = ' amazon--is_block' . $className;
 	$temppart[] = '<div class="appip-block-wrapper">';
 	$temppart[] = '<div class="amazon-template--product-dark' . $className . '">';
-	if ( ( bool )$array_for_templates[ 'hide_image' ] !== true ) {
+	if ( ( bool )$array_for_templates[ 'hide_image' ] === false ) {
 		$temppart[] = '	<div class="amazon-image-wrapper">';
 		$temppart[] = '		<a href="[!URL!]" [!TARGET!]>[!IMAGE!]</a>';
-		if ( ( bool )$array_for_templates[ 'hide_lg_img_text' ] !== true )
+		if ( ( bool )$array_for_templates[ 'hide_lg_img_text' ] === false )
 			$temppart[] = '		<a rel="appiplightbox-[!ASIN!]" href="#" data-appiplg="[!LARGEIMAGE!]" target="amazonwin"><span class="amazon-tiny">[!LARGEIMAGETXT!]</span></a>';
 		if ( !empty($result[ 'AddlImages' ]) && $array_for_templates[ 'show_gallery' ] == 1 )
 			$temppart[] = '	<div class="amazon-additional-images-wrapper"><span class="amazon-additional-images-text">[!LBL-ADDL-IMAGES!]</span>' . $result[ 'AddlImages' ] . '</div>';
@@ -405,7 +406,7 @@ function appip_products_templates( $appip_templates, $result, $array_for_templat
 	$temppart[] = '</div>';
 	if ( $array_for_templates[ 'product_count' ] > 1 )
 		$temppart[] = '<div><hr></div>';
-	else 
+	else
 		$temppart[] = '<div>&nbsp;</div>';
 	$temppart[] = '</div>';
 	$appip_templates[ 'dark' ] = implode( "\n", $temppart );
@@ -420,7 +421,7 @@ function appip_products_templates( $appip_templates, $result, $array_for_templat
 	$appip_templates[ 'light-reversed' ] = str_replace( 'amazon-template--product-dark', 'amazon-template--light template-reversed', $appip_templates[ 'dark' ] );
 	/* LIGHT TEMPLATE IMG TOP (image on top)*/
 	$appip_templates[ 'light-image-top' ] = str_replace( 'amazon-template--product-dark', 'amazon-template--light template-img-top', $appip_templates[ 'dark' ] );
-	
+
 	return $appip_templates;
 }
 add_filter( 'appip-template-filter', 'appip_products_templates', 10, 3 );
@@ -438,15 +439,13 @@ function appip_products_templates_amzlayout( $appip_templates, $result, $array_f
 	$lprice = isset($result['NewAmazonPricing']['New']['List']) ? esc_attr($result['NewAmazonPricing']['New']['List']): '';
 	$prime = isset($result['NewAmazonPricing']['New']['IsPrimeEligible']) && (int)$result['NewAmazonPricing']['New']['IsPrimeEligible'] == 1 ? true : false;
 	$tlprice = $lprice;
-	
+
 	if( $sprice != $price && $sprice != '' && $price != '' && (int) $sprice != 0 ){
 		$lprice = '';
 	}else if( $lprice == $sprice ){
 		$lprice = '';
-	}else{
-		
-	}
-	
+	}else{}
+
 	$temppart = array();
 	$temppart[] = '<!-- HTML code for ASIN : '.$ASIN.' -->';
 	$temppart[] = '    <div class="paapi5-pa-ad-unit pull-left">';
@@ -478,7 +477,7 @@ function appip_products_templates_amzlayout( $appip_templates, $result, $array_f
 	/*
 	if ( $array_for_templates[ 'product_count' ] > 1 )
 		$temppart[] = '<div><hr></div>';
-	else 
+	else
 		$temppart[] = '<div>&nbsp;</div>';
 	*/
 	$appip_templates[ 'amazon-layout' ] = implode( "\n", $temppart );
