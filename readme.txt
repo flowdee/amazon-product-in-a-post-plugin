@@ -4,9 +4,9 @@ Contributors: flowdee, kryptonitewp
 Tags: Amazon, Amazon Associate, Amazon product, Amazon Affiliate
 Donate link: https://donate.flowdee.de/
 Requires at least: 5.0
-Tested up to: 5.5.1
+Tested up to: 5.6.1
 Requires PHP: 5.6.0
-Stable tag: 5.2.1
+Stable tag: 5.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -111,6 +111,11 @@ No additional adjustments are needed unless you want to configure your own CSS s
 13. Amazon Cache Page. Allows you to see and delete cached product data.
 
 == Changelog ==
+
+= 5.2.2 (22th February 2021) =
+* Tweak: Set product title as default ALT tag for images
+* Fix: `hide_image` and `hide_lg_img_text` didn't work properly
+* WordPress v5.6.1 compatibility
 
 = 5.2.1 (20th September 2020) =
 * Fix: Plugin settings didn't update properly

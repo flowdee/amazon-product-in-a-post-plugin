@@ -8,7 +8,7 @@ Author URI: https://kryptonitewp.com
 Author Email: support@kryptonitewp.com
 Text Domain: amazon-product-in-a-post-plugin
 Domain Path: /lang/
-Version: 5.2.1
+Version: 5.2.2
     Copyright (C) 2009-2020 KryptoniteWP
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ add_action('init', 'amazon_product_load_textdomain');
  *
  * @var [string]
  */
-define( 'APIAP_PLUGIN_VER', '5.2.1' );
+define( 'APIAP_PLUGIN_VER', '5.2.2' );
 /**
  * Plugin Database version.
  *
