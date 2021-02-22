@@ -174,7 +174,6 @@ if(!function_exists('getSingleAmazonProduct')){
 				'is_block'					=> $is_block,
 				'title_charlen'				=> $title_charlen,
 				'use_carturl'				=> $useCartURL, //alias for use_cart_URL
-
 			);
 			$set_array				= array("Operation" => $appip_operation,"ItemId" => $ASIN,"ResponseGroup" => $appip_responsegroup,"IdType" => $appip_idtype,"AssociateTag" => $manual_partner_id );
 			$api_request_array		= array("RequestBy" => 'main-call-getSingleAmazonProduct-91','locale'=>$manual_locale,'public_key'=>$manual_public_key,'private_key'=>$manual_private_key, "partner_id" => $manual_partner_id, 'api_request_array'=>$set_array);
@@ -351,8 +350,9 @@ if(!function_exists('getSingleAmazonProduct')){
 							$temppart[] = '<div class="appip-block-wrapper">';
 							$temppart[] = '<div class="amazon-template--fluffy'.$blockClass.'">';
 							$temppart[] = '	<div class="amazon-image-wrapper">';
-							$temppart[] = '		<a href="[!URL!]" [!TARGET!]>[!IMAGE!]</a>';
-							if((bool) $array_for_templates['hide_lg_img_text'] !== true)
+                            if((bool) $array_for_templates['hide_image'] === false )
+    							$temppart[] = '		<a href="[!URL!]" [!TARGET!]>[!IMAGE!]</a>';
+							if((bool) $array_for_templates['hide_lg_img_text'] === false )
 								$temppart[] = '	<a rel="appiplightbox-[!ASIN!]" href="#" data-appiplg="[!LARGEIMAGE!]" target="amazonwin"><span class="amazon-tiny">[!LARGEIMAGETXT!]</span></a>';
 							if($result['AddlImages']!='' && (bool) $array_for_templates['show_gallery'])
 								$temppart[] = '	<div class="amazon-additional-images-wrapper"><span class="amazon-additional-images-text">[!LBL-ADDL-IMAGES!]:</span>[!ADDL-IMAGES!]</div>';
@@ -491,11 +491,16 @@ if(!function_exists('getSingleAmazonProduct')){
 								$returnval .= '		<tr>'."\n";
 								$returnval .= '			<td valign="top">'."\n";
 								$returnval .= '				<div class="amazon-image-wrapper">'."\n";
-								$img = isset($result['MediumImage']) ? $result['MediumImage'] : '';
-								$img = $img == '' && isset($result['LargeImage']) ? $result['LargeImage'] : $img;
-								$returnval .= '<a href="' . $linkURL . '" '.$apippnewwindowhtml.$nofollow.'>' . checkSSLImages_tag($img ,'amazon-image amazon-image-medium',$result['ASIN'], $title). '</a><br />'."\n";
-								if($result['LargeImage']!='')
-									$returnval .= '<a rel="appiplightbox-'.$result['ASIN'].'" href="#" data-appiplg="'.checkSSLImages_url($result['LargeImage']) .'"target="amazonwin"><span class="amazon-tiny">'.$appip_text_lgimage.'</span></a>'."\n";
+
+                                if((bool) $hide_image === false){
+                                    $img = isset($result['MediumImage']) ? $result['MediumImage'] : '';
+                                    $img = $img == '' && isset($result['LargeImage']) ? $result['LargeImage'] : $img;
+                                    $returnval .= '<a href="' . $linkURL . '" '.$apippnewwindowhtml.$nofollow.'>' . checkSSLImages_tag($img ,'amazon-image amazon-image-medium',$result['ASIN'], $title). '</a><br />'."\n";
+
+                                    if( !empty($result['LargeImage']) && (bool) $hide_lg_img_text === false )
+                                        $returnval .= '<a rel="appiplightbox-'.$result['ASIN'].'" href="#" data-appiplg="'.checkSSLImages_url($result['LargeImage']) .'" target="amazonwin"><span class="amazon-tiny">'.$appip_text_lgimage.'</span></a>'."\n";
+                                }
+
 								if ( ( int )$array_for_templates[ 'image_count' ] >= 1 && ( int )$array_for_templates[ 'image_count' ] <= 10 && is_array( $result[ 'AddlImagesArr' ] ) && !empty( $result[ 'AddlImagesArr' ] ) ) {
 									$result[ 'AddlImages' ] = implode( '', array_slice( $result[ 'AddlImagesArr' ], 0, ( int )$array_for_templates[ 'image_count' ] ) );
 								} elseif ( ( int )$array_for_templates[ 'image_count' ] == 0 ) {
