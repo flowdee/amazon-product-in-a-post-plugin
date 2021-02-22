@@ -27,14 +27,14 @@ if(!function_exists('getSingleAmazonProduct')){
 				// in front end and not on a singlular page but show on sigle page only if checked
 				// so return nothing (no need to display)
 				if( (bool) $single_only === true && !is_singular() )
-					return $returnval;			
+					return $returnval;
 			}
 		}elseif( !is_admin() && (bool) $single_only && !is_singular()) {
 			//is not a single page, is on the front end and no Gutenberg installed or prior to WP 5.0
 			return $returnval;
 		}
 		/* end check */
-		
+
 		global $amazonhiddenmsg;
 		global $amazonerrormsg;
 		global $apippopennewwindow;
@@ -45,7 +45,7 @@ if(!function_exists('getSingleAmazonProduct')){
 		global $validEncModes;
 		global $appip_templates;
 		global $appipTimestampMsgPrinted;
-		
+
 		$extratext 			= apply_filters('getSingleAmazon_Product_extratext',$extratext);
 		$extrabutton		= apply_filters('getSingleAmazon_Product_extrabutton',$extrabutton);
 		$manual_array		= apply_filters('getSingleAmazon_Product_manual_array',$manual_array);
@@ -82,7 +82,7 @@ if(!function_exists('getSingleAmazonProduct')){
 		$appip_text_platform	= apply_filters('appip_text_platform', __("Platform:",'amazon-product-in-a-post-plugin'));
 		$appip_text_genre		= apply_filters('appip_text_genre', __("Genre:",'amazon-product-in-a-post-plugin'));
 		$appip_text_rating		= apply_filters('appip_text_rating', __("Rating:",'amazon-product-in-a-post-plugin'));
-		
+
 		// Main Amazon API Call
 		if ( $asin != '' && $manual_public_key != '' && $manual_private_key != ''){
 			$ASIN 					= apply_filters('getSingleAmazon_Product_asin',(is_array($asin) ? implode(',',$asin) : $asin)); //valid ASIN or ASINs
@@ -116,7 +116,7 @@ if(!function_exists('getSingleAmazonProduct')){
 			}else{
 				$replace_title[] = $replace_titleS;
 			}
-			
+
 			$array_for_templates	= array(  //these are shortcode variables to pass to template functions
 				'apippnewwindowhtml'		=> $apippnewwindowhtml,
 				'amazonhiddenmsg'			=> $amazonhiddenmsg,
@@ -227,7 +227,7 @@ if(!function_exists('getSingleAmazonProduct')){
 								foreach ( $r3 as $ke => $ritem3 ) {
 									$totalResult3[] = $ritem3;
 								}
-							}							
+							}
 						}elseif(isset($pxml['Items'])){
 							//only items
 							$r2 = $awsv5->appip_plugin_FormatASINResult( $pxml, 1, $asinR, $pxmlkey);
@@ -252,7 +252,7 @@ if(!function_exists('getSingleAmazonProduct')){
 				//errors and items
 				$itemErrors = true;
 				/*
-				loop the errors- and looks for item errors only, 
+				loop the errors- and looks for item errors only,
 				then put into the return array for that ASIN (even though it is invalid).
 				This will output the error into the HTML as a comment so user can see what is going on
 				when no product is displayed.
@@ -287,8 +287,8 @@ if(!function_exists('getSingleAmazonProduct')){
 					return '<pre style="display:none;" class="appip-errors">APPIP ERROR: amazonproducts['."\n" . implode( "\n", $errmsg ) ."\n". ']</pre>';
 				}
 			}else{
-				$resultarr = isset( $totalResult2 ) && !empty( $totalResult2 ) ? $totalResult2 : array(); 
-				$resultarr3 = isset($totalResult3) && !empty($totalResult3) ? $totalResult3 : array(); 
+				$resultarr = isset( $totalResult2 ) && !empty( $totalResult2 ) ? $totalResult2 : array();
+				$resultarr3 = isset($totalResult3) && !empty($totalResult3) ? $totalResult3 : array();
 
 				if( !is_array( $resultarr ) )
 					$resultarr = (array) $resultarr;
@@ -390,6 +390,14 @@ if(!function_exists('getSingleAmazonProduct')){
 							$temppart[] = '</div>';
 							$appip_templates['fluffy'] = implode("\n",$temppart);
 							$appip_templates = apply_filters('appip-template-filter',$appip_templates, $result, $array_for_templates);
+
+                            // Product title
+                            if(isset($replace_title[$arr_position]) && $replace_title[$arr_position]!=''){
+                                $title = $replace_title[$arr_position];
+                            }else{
+                                $title = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
+                            }
+
 							if( $template != 'default' && isset($appip_templates[$template])){
 								$nofollow = ' rel="nofollow"';
 								if( (bool) $apippopennewwindow )
@@ -406,11 +414,6 @@ if(!function_exists('getSingleAmazonProduct')){
 								}else{
 									$buttonURL  = apply_filters('appip_amazon_button_url',plugins_url('/images/'.$buyamzonbutton,dirname(__FILE__)),$buyamzonbutton,$manual_locale);
 									$BtnHTML 	= '<div class="amazon-price-button"><a '. $apippnewwindowhtml .$nofollow.' href="' . $linkURL .'"><img class="amazon-price-button-img" src="'.$buttonURL.'" alt="'.apply_filters('appip_amazon_button_alt_text', __('buy now','amazon-product-in-a-post-plugin'),$result['ASIN']).'"/></a></div>'."\n";
-								}
-								if(isset($replace_title[$arr_position]) && $replace_title[$arr_position]!=''){
-									$title = $replace_title[$arr_position];
-								}else{
-									$title = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
 								}
 								$newdesc 	= '';
 								if(is_array($result["ItemDesc"]) && $description == 1 && isset($result["ItemDesc"][0])){
@@ -446,7 +449,7 @@ if(!function_exists('getSingleAmazonProduct')){
 								$replacearr = array(
 									$linkURL,
 									$apippnewwindowhtml,
-									checkSSLImages_tag($result['LargeImage'],'amazon-image amazon-image-large',$result['ASIN']),
+									checkSSLImages_tag($result['LargeImage'],'amazon-image amazon-image-large',$result['ASIN'], $title),
 									$title,
 									checkSSLImages_url($result['LargeImage']),
 									$appip_text_lgimage,
@@ -465,12 +468,12 @@ if(!function_exists('getSingleAmazonProduct')){
 									$BtnHTML,
 									$appip_text_releasedon,
 									$appip_text_reldate,
-									date("F j, Y", strtotime($result["ReleaseDate"])),									
+									date("F j, Y", strtotime($result["ReleaseDate"])),
 									__('Additional Images','amazon-product-in-a-post-plugin'),
 									$result['AddlImages'],
-									
+
 								);
-								
+
 								$findarr 	= apply_filters('appip_template_find_array',$findarr,$template,$result);
 								$replacearr = apply_filters('appip_template_replace_array',$replacearr,$template,$result,$title,$desc);
 								$returnval	.=str_replace($findarr,$replacearr,$appip_templates[$template]);
@@ -490,7 +493,7 @@ if(!function_exists('getSingleAmazonProduct')){
 								$returnval .= '				<div class="amazon-image-wrapper">'."\n";
 								$img = isset($result['MediumImage']) ? $result['MediumImage'] : '';
 								$img = $img == '' && isset($result['LargeImage']) ? $result['LargeImage'] : $img;
-								$returnval .= '<a href="' . $linkURL . '" '.$apippnewwindowhtml.$nofollow.'>' . checkSSLImages_tag( $img ,'amazon-image amazon-image-medium',$result['ASIN']). '</a><br />'."\n";
+								$returnval .= '<a href="' . $linkURL . '" '.$apippnewwindowhtml.$nofollow.'>' . checkSSLImages_tag($img ,'amazon-image amazon-image-medium',$result['ASIN'], $title). '</a><br />'."\n";
 								if($result['LargeImage']!='')
 									$returnval .= '<a rel="appiplightbox-'.$result['ASIN'].'" href="#" data-appiplg="'.checkSSLImages_url($result['LargeImage']) .'"target="amazonwin"><span class="amazon-tiny">'.$appip_text_lgimage.'</span></a>'."\n";
 								if ( ( int )$array_for_templates[ 'image_count' ] >= 1 && ( int )$array_for_templates[ 'image_count' ] <= 10 && is_array( $result[ 'AddlImagesArr' ] ) && !empty( $result[ 'AddlImagesArr' ] ) ) {
@@ -499,18 +502,13 @@ if(!function_exists('getSingleAmazonProduct')){
 									$result[ 'AddlImages' ] = array();
 									$show_gallery = 0;
 								}
-								
+
 								if($result['AddlImages'] != '' && $show_gallery == 1)
 									$returnval .= '<div class="amazon-additional-images-wrapper"><span class="amazon-additional-images-text">'.__( 'Additional Images', 'amazon-product-in-a-post-plugin' ).':</span>'.$result['AddlImages'].'</div>';
-								
+
 								$returnval .= '</div>'."\n";
 								$returnval .= '<div class="amazon-buying">'."\n";
 
-								if(isset($replace_title[$arr_position]) && $replace_title[$arr_position] !='' ){
-									$title = $replace_title[$arr_position];
-								}else{
-									$title = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]), $title_charlen);
-								}
 								if(strtolower($title) != 'null' && (bool) $hide_title !== true )
 									$returnval .= '	<h2 class="amazon-asin-title"><a href="' . $linkURL . '" '. $apippnewwindowhtml .$nofollow.'><span class="asin-title">'.$title.'</span></a></h2>'."\n";
 								if(!empty($result["ItemDesc"])  && $description == 1){

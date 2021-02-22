@@ -75,11 +75,11 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 			if(isset($atts[ 'asin' ]) && $atts[ 'asin' ] != ''){
 				$atts[ 'asin' ] = str_replace(array("<br/>","<br>","\r","\n","\r\n","\t",", ","  "," ",",,"),array('','','','','','',',','','',','),$atts[ 'asin' ]);
 			}
-			$replace_titleA = array();
+			$replace_title = array();
 			if(strpos($atts[ 'replace_title' ],"::")!== false){
-				$replace_titleA = explode("::",$atts[ 'replace_title' ]);
+				$replace_title = explode("::",$atts[ 'replace_title' ]);
 			}else{
-				$replace_titleA[] = $atts[ 'replace_title' ];
+				$replace_title[] = $atts[ 'replace_title' ];
 			}
 			$title_charlen = $atts[ 'title_charlen' ];
 
@@ -302,14 +302,19 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 									$nofollow = ' rel="nofollow"';
 								$nofollow = apply_filters( 'appip_template_add_nofollow', $nofollow, $result );
 
+								// Product title
+                                if(isset($replace_title[$arr_position]) && $replace_title[$arr_position]!=''){
+                                    $NewTitle = $replace_title[$arr_position];
+                                }else{
+                                    $NewTitle = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
+                                }
+
+                                // Product image "Alt" tag
+                                $appip_alt_text_main_img = apply_filters('appip_alt_text_main_img',$NewTitle,$currasin);
+
 								foreach ( $fielda as $fieldarr ) {
 									switch ( strtolower( $fieldarr ) ) {
 										case 'title':
-											if(isset($replace_titleA[$arr_position]) && $replace_titleA[$arr_position]!=''){
-												$NewTitle = $replace_titleA[$arr_position];
-											}else{
-												$NewTitle = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]),$title_charlen);
-											}
 											//$NewTitle = Amazon_Product_Shortcode::appip_do_charlen(maybe_convert_encoding($result["Title"]), $atts['title_charlen']);
 											$titleWrap = isset($labels['title-wrap'][$arr_position]) && $labels['title-wrap'][$arr_position]!= '' ? $labels['title-wrap'][$arr_position] : 'h3';
 											$titleLabel = isset($labels['title'][$arr_position]) && $labels['title'][$arr_position]!= '' ? $labels['title'][$arr_position].': ' : '';
@@ -317,24 +322,24 @@ if ( !class_exists( 'amazonAPPIP_ShortcodeGrid_plugin' ) ) {
 											break;
 										case 'med-image':
 										case 'MediumImage':
-											$img1 = isset( $result[ "MediumImage" ] ) && $result[ "MediumImage" ] != '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "MediumImage" ] . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': '';
-											$img2 = $img1 == '' && isset( $result[ "LargeImage" ] ) ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "LargeImage" ] . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': $img1;
-											$img2 = $img2 == ''  ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $noimage . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': $img1;
+											$img1 = isset( $result[ "MediumImage" ] ) && $result[ "MediumImage" ] != '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "MediumImage" ] . '" alt="'.$appip_alt_text_main_img.'" ></a>': '';
+											$img2 = $img1 == '' && isset( $result[ "LargeImage" ] ) ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "LargeImage" ] . '" alt="'.$appip_alt_text_main_img.'" ></a>': $img1;
+											$img2 = $img2 == ''  ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $noimage . '" alt="'.$appip_alt_text_main_img.'" ></a>': $img1;
 											$retarr[$currasin][$fieldarr] = $img2;
 											break;
 										case 'image':
 										case 'lg-image':
 										case 'LargeImage':
 										case 'HiResImage':
-											$img1 = isset( $result[ "LargeImage" ] ) && $result[ "LargeImage" ] != '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "LargeImage" ] . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': '';
-											$img2 = $img1 == '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $noimage . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': $img1;
+											$img1 = isset( $result[ "LargeImage" ] ) && $result[ "LargeImage" ] != '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "LargeImage" ] . '" alt="'.$appip_alt_text_main_img.'" ></a>': '';
+											$img2 = $img1 == '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $noimage . '" alt="'.$appip_alt_text_main_img.'" ></a>': $img1;
 											$retarr[ $currasin ][ $fieldarr ] = $img2;
 											break;
 										case 'sm-image':
 										case 'SmallImage':
-											$img1 = isset( $result[ "SmallImage" ] ) && $result[ "SmallImage" ] != '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "SmallImage" ] . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': '';
-											$img2 = $img1 == '' && isset( $result[ "SmallImage" ] ) ? '<a href="' . $linkURL . '" ' . $target. $nofollow . '><img src="' . $result[ "SmallImage" ] . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': $img1;
-											$img2 = $img2 == ''  ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $noimage . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$currasin)).'" ></a>': $img1;
+											$img1 = isset( $result[ "SmallImage" ] ) && $result[ "SmallImage" ] != '' ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $result[ "SmallImage" ] . '" alt="'.$appip_alt_text_main_img.'" ></a>': '';
+											$img2 = $img1 == '' && isset( $result[ "SmallImage" ] ) ? '<a href="' . $linkURL . '" ' . $target. $nofollow . '><img src="' . $result[ "SmallImage" ] . '" alt="'.$appip_alt_text_main_img.'" ></a>': $img1;
+											$img2 = $img2 == ''  ? '<a href="' . $linkURL . '" ' . $target . $nofollow . '><img src="' . $noimage . '" alt="'.$appip_alt_text_main_img.'" ></a>': $img1;
 											$retarr[ $currasin ][ $fieldarr ] = $img2;
 											break;
 										case 'author':

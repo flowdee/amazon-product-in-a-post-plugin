@@ -2,7 +2,7 @@
 function register_plugin_meta_for_Gutentaug() {
 	$metafields = array(
 		'amazonpipp_noncename' => 'string',
-		'amazon-product-isactive' => 'string', 
+		'amazon-product-isactive' => 'string',
 		'amazon-product-single-asin' => 'string',
 		'amazon-product-content-location'=> 'string',
 		'amazon-product-content-hook-override'=> 'string',
@@ -105,7 +105,7 @@ function amazon_product_get_new_button_array( $locale, $trigger = ''  ){
 			$custom_button_round = $av['btn-rnd'];
 			$css = '.amazon__btn-'.$custom_name.'{color: '.$custom_button_text_reg_color.' !important; background-color: '.$custom_button_reg_color.' !important;border-radius: '.(int)$custom_button_round.'px !important;}'."\n".'.amazon__btn-'.$custom_name.':hover{color: '.$custom_button_text_hov_color.' !important; background-color: '.$custom_button_hov_color.' !important;}';
 			$btn_arr[ $k] = array(
-				'color'=> $custom_class, 
+				'color'=> $custom_class,
 				'text' => esc_attr($custom_button_text),
 				'dropdown_title' => esc_attr($custom_dropdown_text),
 				'custom' => isset($av['name ']) ? 'true' :'false',
@@ -132,7 +132,7 @@ function amazon_product_get_new_button_array( $locale, $trigger = ''  ){
 //add_action( 'wp_footer', 'amazon_add_footer_code', 100 );
 function amazon_add_footer_code() {
 	$is_login = in_array( $GLOBALS[ 'pagenow' ], array( 'wp-login.php', 'wp-register.php' ) ) ? true : false;
-	$tracking_id = APIAP_ASSOC_ID; //Amazon Partner ID 
+	$tracking_id = APIAP_ASSOC_ID; //Amazon Partner ID
 	$link_id = get_option( 'apipp_amazon_associate_ad_linkid', '' ); // add link id
 	$region = get_option( 'apipp_amazon_associate_ad_region', 'US' ); // add region code
 	if ( ( bool )get_option( 'apipp_product_mobile_popover', true ) === true && !is_admin() && !$is_login && $tracking_id !== '' && $link_id !== '' ) {
@@ -170,7 +170,7 @@ if ( !function_exists( 'aws_prodinpost_filter_content_test' ) ) {
 			$appip_running_excerpt = false;
 		else
 			$appip_running_excerpt = true;
-		
+
 		$ActiveProdPostAWS = get_post_meta( $post->ID, 'amazon-product-isactive', true );
 		$singleProdPostAWS = get_post_meta( $post->ID, 'amazon-product-single-asin', true );
 		$AWSPostLoc = get_post_meta( $post->ID, 'amazon-product-content-location', true );
@@ -204,7 +204,7 @@ if ( !function_exists( 'aws_prodinpost_filter_content_test' ) ) {
 			'newwindow' => $newWindow,
 			'template' => $apptemplate,
 		);
-		/* 
+		/*
 		 * Strip Excerpt Shortcodes:
 		 * this strips the shortcodes out of the excerpt in the event
 		 * that there is not excerpt and one is created using the content.
@@ -436,7 +436,7 @@ if ( !function_exists( 'aws_prodinpost_filter_excerpt_test' ) ) {
 				$awsv5 = new Amazon_Product_Request_V5( null, null, null, null, 'single' );
 				/* END NEW */
 				$skipCache = false;//cache-only-loop-start
-				$pxmlNew = amazon_plugin_aws_signed_request( $locale, array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $grASIN, "AssociateTag" => $associalTag, "RequestBy" => 'cache-only-loop-start' ), $accessKey, $secretKey, ($skipCache ? true : false) );	
+				$pxmlNew = amazon_plugin_aws_signed_request( $locale, array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $grASIN, "AssociateTag" => $associalTag, "RequestBy" => 'cache-only-loop-start' ), $accessKey, $secretKey, ($skipCache ? true : false) );
 			}
 
 			//replace short tag here. Handle a bit different than content so they get stripped if they don't want to hook excerpt we don't want to show the [AMAZON-PRODUCT=XXXXXXXX] tag in the excerpt text!
@@ -513,7 +513,7 @@ add_filter( 'apipp_amazon_product_array_filter', function ( $RetVal, $Item ){
 		if(is_array($Item['ItemAttributes']['Feature']) && !empty($Item['ItemAttributes']['Feature'])){
 			foreach($Item['ItemAttributes']['Feature'] as $feat){
 				if(strpos( $feat,'<li class="amazon-item-feature">') === false)
-					$FeatNew[] = '<li class="amazon-item-feature">'.$feat.'</li>';	
+					$FeatNew[] = '<li class="amazon-item-feature">'.$feat.'</li>';
 			}
 			if(!empty($FeatNew))
 				$newFeat = '<ul>'."\n".implode("\n",$FeatNew).'</ul>'."\n";
@@ -565,7 +565,7 @@ function amazon_plugin_postlist_detect_and_cache_ASINs( $posts ) {
 					}
 				}
 			}
-			//get scodes				
+			//get scodes
 			foreach ( $scode_attrs as $scode ) {
 				if ( Amazon_Product_Shortcode::appip_has_shortcode( $apposts->post_content, $scode ) ) {
 					if ( preg_match_all( '/' . $pattern . '/s', $apposts->post_content, $matches ) && array_key_exists( 2, $matches ) && in_array( $scode, $matches[ 2 ] ) ) {
@@ -624,12 +624,12 @@ function amazon_plugin_postlist_detect_and_cache_ASINs( $posts ) {
 			/* END NEW */
 			$skipCache = false;//cache-only-loop-start
 			$pxmlNew = amazon_plugin_aws_signed_request( $locale, array( "Operation" => "GetItems", "payload" => $payloadArr, "ItemId" => $grASIN, "AssociateTag" => $associalTag, "RequestBy" => 'cache-only-loop-start' ), $accessKey, $secretKey, ($skipCache ? true : false) );
-		}	
+		}
 	}
 	return $posts;
 }
 //updated to production 4.0.0
-add_filter( 'the_posts', 'amazon_plugin_postlist_detect_and_cache_ASINs' ); 
+add_filter( 'the_posts', 'amazon_plugin_postlist_detect_and_cache_ASINs' );
 function maybe_convert_encoding( $text ) {
 	$encmode_temp = mb_detect_encoding( "aeiou�", mb_detect_order() );
 	$encodemode = get_bloginfo( 'charset' );
@@ -817,10 +817,14 @@ function _clear_appip_text($val=''){
 }
 */
 if ( !function_exists( 'checkSSLImages_tag' ) ) {
-	function checkSSLImages_tag( $img_URL, $class = '', $ASIN = '') {
+	function checkSSLImages_tag( $img_URL, $class = '', $ASIN = '', $alt_tag = '') {
+	    if (empty($alt_tag))
+            $alt_tag = __('Buy Now','amazon-product-in-a-post-plugin');
+
 		if ( amazon_check_SSL_on() )
-			return '<img src="' . plugin_aws_prodinpost_filter_text( $img_URL ) . '" alt="'.(apply_filters('appip_alt_text_main_img',__('Buy Now','amazon-product-in-a-post-plugin'),$ASIN)).'" class="' . $class . '">';
-		return '<img src="' . $img_URL . '" alt="" class="' . $class . '">';
+			return '<img src="' . plugin_aws_prodinpost_filter_text( $img_URL ) . '" alt="'. apply_filters('appip_alt_text_main_img',$alt_tag,$ASIN) .'" class="' . $class . '">';
+
+		return '<img src="' . $img_URL . '" alt="' . apply_filters('appip_alt_text_main_img',$alt_tag,$ASIN) . '" class="' . $class . '">';
 	}
 }
 if ( !function_exists( 'checkSSLImages_url' ) ) {
@@ -1032,7 +1036,7 @@ function get_appip_request_array( $getArr ) {
 			$fParam = str_replace( "%7E", "~", rawurlencode( $param ) );
 			$canquery[] = $fParam . "=" . $fValue;
 		}
-		$request[] = implode( "&", $canquery ); 
+		$request[] = implode( "&", $canquery );
 		return array( 'requests' => $getArr, 'asins' => array() );
 	}
 }
@@ -1066,7 +1070,7 @@ class amazonAPPIP_ButtonURLFix2016 {
 		/* Main Override to fix new Buttons - This can be overridden if a button is uploaded */
 		add_filter( 'appip_amazon_button_url', array( $this, 'button_url_for_locale' ), 5, 3 );
 	}
-	
+
 	public function apipp_plugin_menu() {
 		add_submenu_page( 'apipp-main-menu', __( "Button Settings", 'amazon-product-in-a-post-plugin' ), __( 'Button Settings', 'amazon-product-in-a-post-plugin' ), 'manage_options', 'apipp_plugin-button-url', array( $this, 'apipp_options_button_url_page' ) );
 	}
@@ -1077,7 +1081,7 @@ class amazonAPPIP_ButtonURLFix2016 {
 			return $button_URL;
 		return $url;
 	}
-	
+
 	public function admin_enqueue( $hook ) {
 		if ( strpos($hook, 'page_apipp_plugin-button-url') !== false ) {
 			wp_enqueue_media();
@@ -1085,16 +1089,16 @@ class amazonAPPIP_ButtonURLFix2016 {
 			wp_enqueue_script( 'appip_admin_buttons', plugin_dir_url( dirname( __FILE__ ) ) . 'js/amazon-button-admin.js', array( 'media-upload' ) );
 		}
 	}
-	
+
 	public function button_url_for_locale( $url = '', $button = '', $locale = '' ) {
 		$button = 'new-buyamzon-button-' . $locale . '.png';
 		$newurl = plugins_url( '/images/' . $button, dirname( __FILE__ ) );
 		return $newurl;
 	}
 	public function add_custom_button(){
-		
+
 	}
-	
+
 	public function appip_parse() {
 		if ( is_admin() && isset( $_POST[ 'amazon-button-image' ] ) && $_POST[ 'amazon-button-image' ] !== '' ) {
 			check_admin_referer( 'appip_admin_button_url', 'security' );
