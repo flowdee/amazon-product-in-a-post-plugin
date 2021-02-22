@@ -1,6 +1,6 @@
 ﻿=== Amazon Product in a Post Plugin ===
 Plugin Name: Amazon Product in a Post
-Contributors: flowdee
+Contributors: flowdee, kryptonitewp
 Tags: Amazon, Amazon Associate, Amazon product, Amazon Affiliate
 Donate link: https://donate.flowdee.de/
 Requires at least: 5.0
