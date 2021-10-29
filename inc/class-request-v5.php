@@ -261,17 +261,21 @@ class Amazon_Product_Request_V5 {
    foreach ( $Item as $var => $val ) {
      if ( !in_array(  (string) $var, $dontuse ) ) {
 		 if ( $key == "" ) {
-          if ( is_array( $val ) ) {
+          if ( is_array($val) ) {
             $blowoffArr = $this->appip_blowoffarr2( $val, $var, $blowoffArr );
           } else {
             $blowoffArr[ $var ] = $val;
           }
         } else {
-		  if(count($val) > 1 && (string) $var == '0'){
-			$blowoffArr = $this->appip_blowoffarr2( $val, $key, $blowoffArr );
-		  }else{
-			$blowoffArr = $this->appip_blowoffarr2( $val, $key . '_' . $var, $blowoffArr );
-		  }
+             if ( is_array($val) ) {
+                 if(count($val) > 1 && (string) $var == '0'){
+                     $blowoffArr = $this->appip_blowoffarr2( $val, $key, $blowoffArr );
+                 }else{
+                     $blowoffArr = $this->appip_blowoffarr2( $val, $key . '_' . $var, $blowoffArr );
+                 }
+             } else {
+                 $blowoffArr[ $key . '_' . $var] = $val;
+             }
         }
       }
     }
@@ -281,7 +285,7 @@ class Amazon_Product_Request_V5 {
    $dontuse = apply_filters( 'amazon_product_in_a_post_blowoffarr_dontuse', array( 'BrowseNodes', 'SimilarProducts' ) );
    foreach ( $Item as $var => $val ) {
       if (!in_array( (string) $var, $dontuse ) ) {
-          if ( is_array( $val ) ) {
+          if ( is_array($val) ) {
 			  if(count($val) > 1 && (string) $var == '0'){
 				$blowoffArr = $this->appip_blowoffarr2( $val, $key, $blowoffArr );
 			  }else{
