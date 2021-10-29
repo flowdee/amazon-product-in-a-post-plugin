@@ -1,6 +1,10 @@
 <?php
 // Tools
 global $appipBulidBox;
+
+// Get the WordPress version.
+require ABSPATH . WPINC . '/version.php'; // $wp_version;
+
 //ACTIONS
 add_action( 'init', 'apipp_parse_new', 1 );
 add_action( 'admin_menu', 'apipp_plugin_menu' );
@@ -37,22 +41,51 @@ function add_appip_meta_posttype_support( $posttypes = array() ) {
   }
 }
 
-function appip_plugin_block_categories( $categories, $post ) {
-  //if ( $post->post_type !== 'post' ) {
-  //return $categories;
-  // }
-  return array_merge(
-    $categories,
-    array(
-      array(
-        'slug' => 'amazon-product-category',
-        'title' => __( 'Amazon Products', 'my-plugin' ),
-        'icon' => 'store',
-      ),
-    )
-  );
+// If the WordPress version is older than 5.8:
+if ( version_compare( $wp_version, '5.8-RC1-51325', '<' ) ) {
+
+    function appip_plugin_block_categories( $categories, $post ) {
+        //if ( $post->post_type !== 'post' ) {
+        //return $categories;
+        // }
+        return array_merge(
+            $categories,
+            array(
+                array(
+                    'slug' => 'amazon-product-category',
+                    'title' => __( 'Amazon Products', 'my-plugin' ),
+                    'icon' => 'store',
+                ),
+            )
+        );
+    }
+    add_filter( 'block_categories', 'appip_plugin_block_categories', 10, 2 );
+
+} else {
+
+    function appip_plugin_block_categories( $block_categories, $block_editor_context ) {
+
+        //if ( empty( $block_editor_context->post ) ) {
+        //    return $block_categories;
+        //}
+        //
+        //if ( $block_editor_context->post->post_type !== 'post' ) {
+        //    return $block_categories;
+        //}
+
+        return array_merge(
+            $block_categories,
+            array(
+                array(
+                    'slug' => 'amazon-product-category',
+                    'title' => __( 'Amazon Products', 'my-plugin' ),
+                    'icon' => 'store',
+                ),
+            )
+        );
+    }
+    add_filter( 'block_categories_all', 'appip_plugin_block_categories', 10, 2 );
 }
-add_filter( 'block_categories', 'appip_plugin_block_categories', 10, 2 );
 
 function appip_post_type_support() {
   global $APIAP_USE_GUTENBERG;
