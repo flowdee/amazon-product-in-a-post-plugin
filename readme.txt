@@ -2,7 +2,7 @@
 Plugin Name: Amazon Product in a Post
 Contributors: flowdee, kryptonitewp
 Tags: Amazon, Amazon Associate, Amazon product, Amazon Affiliate
-Donate link: https://donate.flowdee.de/
+Donate link: https://github.com/sponsors/flowdee
 Requires at least: 5.0
 Tested up to: 5.6.1
 Requires PHP: 5.6.0
